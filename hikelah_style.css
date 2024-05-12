@@ -1,97 +1,14 @@
-/* Reset Styles */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
+.hero-subtext {
+    font-size: 2rem;
+    color:#333;
+    font-style: italic;
+    display: inline;
 }
 
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-    display: block;
+.hero-banner {
+    display: inline;
 }
 
-body {
-    line-height: 1;
-    font-family: Arial, sans-serif; /* Default font */
-    background-color: #f7f7f7; /* Default background color */
-    color: #333; /* Default text color */
+.border-black {
+    border: 1px black;
 }
-
-/* Links */
-a {
-    color: #007bff; /* Default link color */
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* Typography */
-h1, h2, h3, h4, h5, h6 {
-    font-weight: bold;
-}
-
-h1 {
-    font-size: 2em;
-}
-
-h2 {
-    font-size: 1.5em;
-}
-
-h3 {
-    font-size: 1em;
-}
-
-/* Add more heading styles as needed */
-
-p {
-    margin-bottom: 1em;
-}
-
-/* Containers */
-.container {
-    width: 100%;
-    margin-right: auto;
-    margin-left: auto;
-    padding-right: 15px;
-    padding-left: 15px;
-}
-
-/* Grid System */
-.row {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.col {
-    flex-basis: 0;
-    flex-grow: 1;
-    max-width: 100%;
-}
-
-/* Add more grid styles as needed */
-
-/* Utility Classes */
-.text-center {
-    text-align: center;
-}
-
-/* Add more utility classes as needed */
