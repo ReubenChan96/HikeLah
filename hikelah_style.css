@@ -1,14 +1,109 @@
-.hero-subtext {
-    font-size: 2rem;
-    color:#333;
-    font-style: italic;
+
+/* 
+<uniquifier>: Use a unique and descriptive class name
+ <weight>: Use a value from 100 to 900 
+ */
+
+* {
+    background: linear-gradient(0deg, #FFF9EC 0%, #FFF9EC 100%);
+}
+
+.inter, p, h1, h2 {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: 16px;
+    font-variation-settings:
+        "slnt" 0;
+}
+
+.logo {
     display: inline;
 }
 
-.hero-banner {
+.alpha-banner {
     display: inline;
+    border-radius: 10px;
+    background: #3D550C;
+    padding: 5px 10px;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    width: 86px;
+    height: 33px;
+    flex-shrink: 0;
+  }
+
+.break-line {
+    color: #ACACAC;
 }
 
-.border-black {
-    border: 1px black;
+.hero-text {
+    font-family: Inter;
+    font-size: 54px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    background: linear-gradient(147deg, #4A7212 45.2%, #6BA51A 61.74%, #7CBE1E 72.66%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
+
+ .hero-image{
+    display: inline-block;
+    max-width: 100%;
+    height:auto;
+    flex-shrink: 0;
+ }
+
+ .card-image{
+    width: 160px;
+    height: 160px;
+    text-align: center;
+    flex-shrink: 0;
+ }
+
+
+
+ .h4-card{
+    width: 161px;
+    position: relative;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 800;
+    color: #3d550c;
+
+ }
+
+ .p-card{
+    text-align: center;
+ }
+
+ .custom-margin{
+    margin: auto;
+ }
+
+.kudos{
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 4px;
+}
+
+.last-update {
+    color: #767676;
+}
+
+/* ultility classes */
+.text-align-right {
+    text-align: right;
+} 
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
