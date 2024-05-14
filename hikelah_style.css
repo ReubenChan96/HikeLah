@@ -4,18 +4,10 @@
  <weight>: Use a value from 100 to 900 
  */
 
-* {
-    background: linear-gradient(0deg, #FFF9EC 0%, #FFF9EC 100%);
-}
-
-.inter, p, h1, h2 {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-style: 16px;
-    font-variation-settings:
-        "slnt" 0;
-}
-
+ body {
+    background-color:#FFF9EC!important;
+ }
+  
 .logo {
     display: inline;
 }
@@ -40,8 +32,34 @@
     color: #ACACAC;
 }
 
+.navbar {
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items:flex-end;
+}
+
+.navbar-nav .nav-link {
+    font-size: 18px;
+    text-decoration: none;
+    padding: 10px 20px !important;
+}
+
+.navbar-nav .nav-item {
+    margin-right: 8px;
+}
+
+.navbar-nav .nav-link:hover {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
 .hero-text {
-    font-family: Inter;
+    font-family: "Inter";
     font-size: 54px;
     font-style: normal;
     font-weight: 800;
@@ -59,13 +77,12 @@
     flex-shrink: 0;
  }
 
- .card-image{
-    width: 160px;
-    height: 160px;
-    text-align: center;
-    flex-shrink: 0;
+ .about-image{
+    display: inline-block;
+    width: auto;
+    height:auto;
+    flex-shrink:inherit;
  }
-
 
 
  .h4-card{
@@ -94,7 +111,27 @@
     color: #767676;
 }
 
-/* ultility classes */
+.page-head {
+
+    font-size: 54px;
+    font-weight: 800;
+    color: #3d550c;
+}
+
+.page-subhead {
+    font-size: 24px;
+    font-weight: 200;
+}
+
+.about-image {
+    display: block;
+    max-width: 100%;
+    height:auto;
+    max-height:500px;
+
+}
+
+/* utility classes */
 .text-align-right {
     text-align: right;
 } 
@@ -105,3 +142,31 @@
     margin-right: auto;
     width: 50%;
   }
+
+.button-style {
+    color:#3D550C;
+  }
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* custom buttons */
+/* Custom styles for GitHub button */
+
+.btn-github {
+    background-color: #333 !important;
+    border-color: #c8e1ff !important;
+  }
+  
+.btn-linkedin {
+    background-color: #0a66c2 !important;
+    border-color: #0a66c2 !important;
+  }
+  
+.btn-github,
+  .btn-linkedin {
+    color: #fff; /* Text color */
+  }
+  
