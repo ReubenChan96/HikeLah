@@ -10,7 +10,16 @@
   
 .logo {
     display: inline;
+    height:auto;
 }
+
+@media (max-width:768px) {
+    .logo {
+        width: 100px;
+        height:auto;
+    }
+}
+
 
 .alpha-banner {
     display: inline;
