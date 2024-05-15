@@ -11,5 +11,4 @@
 *.pem
 
 # env files
-.env*.local
 .env
