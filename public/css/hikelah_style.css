@@ -203,3 +203,9 @@ img {
   .custom-map-control-button:hover {
     background: rgb(235, 235, 235);
   }
+
+  /* disclaimer style */
+.disclaimer-card {
+    font-size: 10px !important;
+    color:#333;
+}

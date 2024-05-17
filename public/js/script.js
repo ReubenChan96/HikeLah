@@ -27,7 +27,7 @@ function initMap() {
     });
 
   // GeoJSON Data Link
-    map.data.loadGeoJson('/data/NParksTracks_w_Name.geojson');
+    map.data.loadGeoJson('/data/merged-NParks-tracks.geojson');
 
     map.data.setStyle({
     strokeWeight: 3, 

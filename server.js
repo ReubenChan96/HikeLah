@@ -27,3 +27,38 @@ app.get('/map', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
+//Connect database
+const fs = require('fs');
+const path = require('path');
+
+async function main() {
+  // Adjust the path to the test file
+  const testFilePath = path.join(__dirname, 'public', 'data', 'test.txt');
+  
+  // Read the test file
+  fs.readFile(testFilePath, 'utf-8', (err, data) => {
+    if (err) {
+      console.error('Error reading the file:', err);
+      return;
+    }
+
+    // Log the content of the test file
+    console.log('Content of test.txt:', data);
+  });
+
+  main()
+  .catch(e => {
+    console.error(e);
+    process.exit(1);
+  });
+  
+}
+
+
+
+
+
+
+
+
