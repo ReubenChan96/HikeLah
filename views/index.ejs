@@ -20,60 +20,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:wght@100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <script src="/js/script.js"></script>
 </head>
-<body>
-  <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light">
-      <a class="navbar-brand" href="/">
-        <img src="/assets/img/hikelah-logo-alpha-2.svg" width="336" height="84" class="d-inline-block align-top" alt="Hikelah logo">
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-  
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Popular Trails</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="/map">Interactive Map</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Useful Links</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about_me">About Me</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </div>
 
-  <hr class="break-line"/>
-  <br/>
+<body>
+  <%- include('partials/navbar.ejs'); %>
 
   <div class="container">
     <div class="row">
       <div class="col-md-4">
-        <h1 class="hero-text">Wait Lah!</h1>
-        <h1 class="hero-text">Still Coding!</h1>
-        <p class="hero-subtext">Get moving with Hikelah! A local trail companion for Singapore’s Park Connector Network, outdoor trails, and many more!</p>
+        <h1 class="hero-text">Plan hikes</h1>
+        <h1 class="hero-text">with ease!</h1>
+        <p class="hero-subtext">Start exploring with Hikelah! your local trail companion for Singapore’s Park Connector Network, outdoor trails, and many more!</p>
+        <a href="/explore" class="btn btn-primary hero-button"> Get Started </a>
 
       </div>
       <div class="col-md-1">
 
       </div>
       <div class="col-md-7">
-          <img class="hero-image image-fluid" src="/assets/img/hiking_trail_hero-test.webp" alt="image of a hiking trail in Singapore " />
+          <img class="hero-image image-fluid" src="/assets/img/hikelah-hero-banner.jpeg" alt="image of a hiking trail in Singapore " />
       </div>
     </div>
   </div>
   <br />
   <div class="container"> 
-    <p>As we gear up for the journey ahead, here’s a sneak peek:</p>
+    <p>Tired of walking the same paths? Unfamiliar with Singapore's trails? Plan your journey with ease with our...</p>
   </div>
 
   <br />
@@ -82,7 +52,7 @@
     <div class="row">
       <div class="col-md-3 col-sm-6 custom-margin"> 
         <img class="card-image center image-fluid" src="/assets/img/recommend.png" alt="recommended image" />
-      <h4 class="h4-card">Recommended Trails</h4>
+      <h4 class="h4-card"><a class="no_style_card" href="/map">Interactive Map</a></h4>
       <p class="p-card">Discover popular trails around Singapore</p>
       </div>
       <div class="col-md-3 col-sm-6 custom-margin">
@@ -98,23 +68,10 @@
     </div>
   </div>
 
-<hr class="break-line"/>
-
-  <div class="container">
-    <p class="kudos text-align-right">A TechUp Project by: Reuben Chan </p>
-    <p class="last-update text-align-right">Last Updated: 17 May 2024</p>
-  </div>
-</br>
-  <div class="container">
-    <p class="disclaimer-card">
-      Disclaimer:
-      This website is created for learning purposes only. The information provided here should not be considered professional advice. Please note that we make no guarantees regarding the accuracy, completeness, or reliability of the contents of this website. Any actions you take based on the contents of this website are at your own risk. We are not liable for any losses or damages incurred from the use of this website.
-    </p>
-  </div>
+  <%- include('partials/footer.ejs'); %>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
 </body>
 </html>

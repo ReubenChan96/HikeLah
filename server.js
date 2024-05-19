@@ -1,60 +1,45 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const { PrismaClient } = require('@prisma/client');
+const path = require('path');
+const PORT = process.env.PORT || 3000; 
+
+// Instantiate PrismaClient at the top
+const prisma = new PrismaClient();
+app.use(express.json());
 
 // Set up EJS for templating
 app.set('view engine', 'ejs');
-app.set('views', './views');
+app.set('views', path.join(__dirname, 'views'));
 
 // Serve static files from the 'public' directory
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Define routes for each page
 app.get('/', (req, res) => {
     res.render('index');
 });
 
-app.get('/about_me', (req, res) => {
-    res.render('about_me');
+app.get('/explore', (req, res) => {
+  res.render('explore');
+});
+
+app.get('/about-me', (req, res) => {
+    res.render('about-me');
+});
+
+app.get('/useful-links', (req, res) => {
+    res.render('useful-links');
 });
 
 app.get('/map', (req, res) => {
     res.render('map', { apiKey: process.env.GOOGLE_MAPS_API_KEY });
 });
 
-// Start the server
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
-
-//Connect database
-const fs = require('fs');
-const path = require('path');
-
-async function main() {
-  // Adjust the path to the test file
-  const testFilePath = path.join(__dirname, 'public', 'data', 'test.txt');
-  
-  // Read the test file
-  fs.readFile(testFilePath, 'utf-8', (err, data) => {
-    if (err) {
-      console.error('Error reading the file:', err);
-      return;
-    }
-
-    // Log the content of the test file
-    console.log('Content of test.txt:', data);
-  });
-
-  main()
-  .catch(e => {
-    console.error(e);
-    process.exit(1);
-  });
-  
-}
-
 
 
 
