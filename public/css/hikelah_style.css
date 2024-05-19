@@ -39,6 +39,15 @@
         padding: 0 15px;
     }
 
+    .navbar-brand {
+        padding-left:0 !important;
+        margin-left:0 !important;
+        width:auto;
+        max-width: 100%;
+        display:flex;
+        align-items: center;
+    }
+
     .navbar-toggler {
         margin-left:auto;
     }
@@ -51,6 +60,7 @@
 
     .navbar-nav .nav-link {
         font-size: 18px;
+        color: #2D3748 !important;
         text-decoration: none;
         padding: 10px 20px !important;
     }
@@ -105,7 +115,10 @@
         border: 0;
         border-radius: 15px;
         border-color:#4A7212 !important;
-        margin: 10px;
+        margin-top: 20px;
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 20px;
         padding: 0 0.5em;
         font: 400 18px 'Inter', Arial, sans-serif;
         color: white;
@@ -293,43 +306,81 @@
     }
 
     /* search basic styles */
-    .results {
-        margin-top: 20px;
+    .search .search-card-link {
+        text-decoration: none;
+        color: inherit;
     }
     
-    .trail-list {
+    .search .search-card-title {
+        font-size: 36px;
+        font-weight: bold;
+        font-family: "Inter", sans-serif;
+    }
+    
+    .search .search-card-table td, 
+    .search .search-card-table th {
+        border: none;
+        width: 33.33%; /* Ensure equal width for each column */
+    }
+    
+    .search .search-card-img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+    
+    .search .search-subtext {
+        font-size: 0.875rem;
+        color: #2D3748;
+    }
+
+    .search .search-header-subtext {
+        font-size: 0.875rem; /* Smaller font size */
+        font-style: italic; /* Italic text */
+        font-weight: 300; /* Light text */
+        color: #6c757d; /* Light text color */
+        margin-bottom: 0.25em; /* Narrow space between subtext and title */
+    }
+
+    .search .search-icon {
+        font-size: 1.25em; /* Adjust icon size as needed */
+        color: #3D550C; /* Color of the icons, adjust as needed */
+        margin: 0 8px 8px 0; /* Add spacing around the icons */
+    }
+
+    .search .pill {
+        padding: 0.25em 0.75em;
+        background-color: #6BA51A; /* Background color for the pill */
+        color: white;
+        border-radius: 25px; /* Rounded corners for the pill shape */
+        display: inline-block; /* Ensures the pill hugs the text */
+        margin: 4px; /* Adds some spacing around the pills */
+    }
+
+    .search .pill:first-child {
+        margin-left:0;
+    }
+
+    .search .highlight-text {
+        font-weight: bold;
+        color: #3D550C;
+    }
+    
+    
+    .search .card-body {
         display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
+        align-items: flex-start;
     }
     
-    .trail-card {
-        background: #f4f4f4;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        padding: 16px;
-        width: calc(33.333% - 20px);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
     
-    .trail-card h3 {
-        margin-top: 0;
+    .search .card-body .col-md-8 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 0 0 66.67%; /* Make sure it takes up 2/3 of the space */
+        max-width: 66.67%; /* Make sure it takes up 2/3 of the space */
+        padding-left: 16px;
+        box-sizing: border-box;
     }
-
-
-
-/* trails table */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  th {
-    background-color: #f2f2f2;
-    text-align: left;
-  }
 
     
