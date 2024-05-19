@@ -39,13 +39,61 @@
     <br />
 
     <!--Filter square-->
+    <!-- filter by re-->
+    <div class="d-flex justify-content-center mb-4">
+    <div class="row gx-4">
+      <div class="col-auto">
+          <div class="dropdown mb-3 custom-dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="regionDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  Region
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="regionDropdown">
+                  <li><div class="form-check"><input class="form-check-input" type="checkbox" value="region-north" id="filter-north"><label class="form-check-label" for="filter-north">North</label></div></li>
+                  <li><div class="form-check"><input class="form-check-input" type="checkbox" value="region-south" id="filter-south"><label class="form-check-label" for="filter-south">South</label></div></li>
+                  <li><div class="form-check"><input class="form-check-input" type="checkbox" value="region-east" id="filter-east"><label class="form-check-label" for="filter-east">East</label></div></li>
+                  <li><div class="form-check"><input class="form-check-input" type="checkbox" value="region-west" id="filter-west"><label class="form-check-label" for="filter-west">West</label></div></li>
+                  <li><div class="form-check"><input class="form-check-input" type="checkbox" value="region-central" id="filter-central"><label class="form-check-label" for="filter-central">Central</label></div></li>
+              </ul>
+          </div>
+      </div>
+
+      <div class="col-auto">
+          <div class="dropdown mb-3 custom-dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="typeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  Type
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="typeDropdown">
+                  <li><div class="form-check"><input class="form-check-input" type="checkbox" value="type-challenge" id="filter-challenge"><label class="form-check-label" for="filter-challenge">Challenge</label></div></li>
+                  <li><div class="form-check"><input class="form-check-input" type="checkbox" value="type-park" id="filter-park"><label class="form-check-label" for="filter-park">Park</label></div></li>
+                  <li><div class="form-check"><input class="form-check-input" type="checkbox" value="type-connector" id="filter-connector"><label class="form-check-label" for="filter-connector">Connector</label></div></li>
+              </ul>
+          </div>
+      </div>
+
+      <div class="col-auto">
+          <div class="dropdown mb-3 custom-dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="terrainDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  Terrain
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="terrainDropdown">
+                  <li><div class="form-check"><input class="form-check-input" type="checkbox" value="trail-walk" id="filter-trail-walk"><label class="form-check-label" for="filter-trail-walk">Trail Walk</label></div></li>
+                  <li><div class="form-check"><input class="form-check-input" type="checkbox" value="trail-forest" id="filter-trail-forest"><label class="form-check-label" for="filter-trail-forest">Trail Forest</label></div></li>
+              </ul>
+          </div>
+      </div>
+  </div>
+
+    </div>
+
+
     <!--Explore and Map buttons-->
 
-    <!--Trail Cards-->
+    <!--Trail Cards--> 
     <div class="container search ">
+      <div class="cards-container">
 
       <%- include('partials/search-card', {
-        cardClasses: 'north-region type-park trail-walk trail-forest sight-animal sight-ff',
+        cardClasses: 'region-north type-park trail-walk trail-forest sight-animal sight-ff',
         cardLink: '/views/index.ejs',
         cardImage: '/assets/img/coney-island-park.jpeg',
         cardAltText: 'Coney island park',
@@ -118,7 +166,7 @@
 
     <!--Bidadari Park Connector-->
     <%- include('partials/search-card', {
-      cardClasses: 'region-central type-park trail-walk trail-forest walk sight-ff sight-animal',
+      cardClasses: 'region-central type-park trail-walk walk sight-ff sight-animal',
       cardLink: '/views/index.ejs',
       cardImage: '/assets/img/bidadari-park.jpeg',
       cardAltText: 'Coney island park',
@@ -188,24 +236,27 @@
       cardSightings: ['fa-leaf'],
       cardDescription: 'The 20-kilometre Western Adventure Loop connects eight parks in western Singapore, including Zhenghua Park, Dairy Farm Nature Park, and Bukit Batok Nature Park. Perfect for thrill-seekers, it offers green corridors, nature reserves, and trails for activities like jogging, cycling, rollerblading, mountain biking, and rock climbing. With scenic views, rich biodiversity, and family-friendly facilities, this loop is a refreshing escape and adventure hub for everyone.'
   }) %>
+
+  </div>
   
 
 
-  </div>
-      </div>
+    </div>
+    </div>
     <hr class="break-line"/>
 
       <%- include('partials/footer.ejs'); %>
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-      <script>
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
             var card = document.getElementById("measure-card");
             console.log("Card height: " + card.offsetHeight + "px");
             console.log("Card width: " + card.offsetWidth + "px");
         });
-    </script>    
+    </script>
+
     </body>
       
   

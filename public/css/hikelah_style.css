@@ -306,6 +306,51 @@
     }
 
     /* search basic styles */
+
+    .filter-card {
+        padding: 32px;
+        margin: relative;
+        width:auto;
+    }
+
+    .dropdown-menu {
+        z-index: 1051;
+    }
+    .dropdown-menu .form-check {
+        margin-left: 8px;
+    }
+
+    .custom-dropdown {
+        display: inline-block;
+        margin-right: 8px;
+    }
+    
+    .custom-dropdown .dropdown-toggle {
+        color: #3D550C;
+        background-color: transparent;
+        border: 2px solid #3D550C;
+    }
+
+    .custom-dropdown .dropdown-toggle:hover, 
+    .custom-dropdown .dropdown-toggle:focus, 
+    .custom-dropdown .dropdown-toggle:active, 
+    .custom-dropdown .dropdown-toggle.show {
+        background-color: #3D550C;
+        color: white;
+        border-color: #3D550C;
+}
+    
+    .custom-dropdown .dropdown-menu {
+        width: 100%;
+    }
+
+    .custom-dropdown .form-check-input:checked {
+        background-color: #6BA51A;
+        border-color: #6BA51A;
+    }
+    
+    
+
     .search .search-card-link {
         text-decoration: none;
         color: inherit;
