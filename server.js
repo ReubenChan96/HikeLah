@@ -5,8 +5,10 @@ const { PrismaClient } = require('@prisma/client');
 const path = require('path');
 const PORT = process.env.PORT || 3000; 
 
-// Instantiate PrismaClient at the top
-const prisma = new PrismaClient();
+// Instantiate PrismaClient at the top with logging for prisma init
+const prisma = new PrismaClient({
+  log: ['query','info', 'warn', 'error'],
+});
 app.use(express.json());
 
 // Set up EJS for templating
