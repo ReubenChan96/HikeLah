@@ -434,13 +434,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
       switch(type) {
           case 'Footpath':
-              color = '#0047AB'; // Shade Grey for footpaths
+              color = '#4682B4'; // Teal for footpaths
               break;
           case 'Bikeway':
               color = '#4682B4'; // SteelBlue for bikeways
               break;
           default:
-              color = '#3D550C'; // Default green color
+              color = '#0047ab'; // Default green color
       }
 
       return {
