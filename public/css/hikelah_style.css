@@ -175,6 +175,16 @@
         border-color: #3D550C;
     }
 
+    .search-card-flex {
+        flex-direction: column;
+    }
+
+    @media (min-width: 1000px) {
+        .search-card-flex { /* Smaller width for mobile devices */
+            flex-direction: row;
+        }
+    }
+    
 /* Page header/footer */
 
 .kudos{
@@ -256,6 +266,32 @@
     h4.h4-card a.no_style_card:hover {
         text-decoration: underline; /* Add underline on hover */
     }
+
+    .mytooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+      }
+
+    .mytooltiptext {
+        visibility: hidden;
+        font-family: inherit;
+        color: white;
+        width: 120px;
+        background-color: #333;
+        text-align: center;
+        border-radius: 5px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1051;
+        bottom: 125%; /* Position the tooltip above the text */
+        left: 50%;
+        margin-left: -60px; /* Center the tooltip */
+      }
+
+      .mytooltip:hover .mytooltiptext {
+        visibility: visible;
+      }
 
 /* Custom Buttons */
 
@@ -423,7 +459,6 @@
         flex-direction: column;
         justify-content: center;
         flex: 0 0 66.67%; /* Make sure it takes up 2/3 of the space */
-        max-width: 66.67%; /* Make sure it takes up 2/3 of the space */
         padding-left: 16px;
         box-sizing: border-box;
     }
