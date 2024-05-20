@@ -162,9 +162,9 @@ document.addEventListener('DOMContentLoaded', function() {
             .map(checkbox => checkbox.value);
         cards.forEach(card => {
             const cardClasses = card.className.split(' ');
-            const matchesAllFilters = selectedFilters.every(filter => cardClasses.includes(filter));
+            const matchesAnyFilters = selectedFilters.some(filter => cardClasses.includes(filter));
 
-            if (selectedFilters.length === 0 || matchesAllFilters) {
+            if (selectedFilters.length === 0 || matchesAnyFilters) {
                 card.style.display = '';
             } else {
                 card.style.display = 'none';
