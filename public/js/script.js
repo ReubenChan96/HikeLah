@@ -434,13 +434,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
       switch(type) {
           case 'Footpath':
-              color = '#4682B4'; // Teal for footpaths
+              color = '#3D550C'; // Teal for footpaths
               break;
           case 'Bikeway':
               color = '#4682B4'; // SteelBlue for bikeways
               break;
           default:
-              color = '#0047ab'; // Default green color
+              color = '#4A7212'; // Default green color
       }
 
       return {
@@ -474,7 +474,35 @@ document.addEventListener('DOMContentLoaded', function() {
     // Transit map layer
     const transitLayer = new google.maps.TransitLayer();
     transitLayer.setMap(map);
-  }
+
+    //Hover and highlight
+
+      map.data.addListener('mouseover', function(event) {
+        map.data.overrideStyle(event.feature, { strokeColor: 'orange', strokeWeight: 8 });
+    });
+
+    map.data.addListener('mouseout', function(event) {
+        map.data.revertStyle();
+  });
+
+    map.data.addListener('click', function(event) {
+      const feature = event.feature;
+      const name = feature.getProperty('name');
+      const description = feature.getProperty('description');
+      const type = feature.getProperty('type');
+      const park = feature.getProperty('park'); // Assuming 'park' is a property
+
+      const contentString = `<div>
+          <h4>${park}</h4>
+          <p>Type: ${type}</p>
+      </div>`;
+
+      infoWindow.setContent(contentString);
+      infoWindow.setPosition(event.latLng);
+      infoWindow.open(map);
+  });
+}
+
 
   //filter logic
   document.addEventListener('DOMContentLoaded', function () {

@@ -92,87 +92,84 @@
     <div class="container search ">
       <div class="cards-container">
 
-      <%- include('partials/search-card', {
-        cardClasses: 'region-north type-park trail-walk sight-animal sight-ff',
-        cardLink: '/views/index.ejs',
-        cardImage: '/assets/img/coney-island-park.jpeg',
-        cardAltText: 'Coney island park',
-        cardHeaderSubtext: 'Nature Park',
-        cardTitle: 'Coney Island',
-        cardPills: ['Casual', 'Forested Trails', 'Cycling-friendly'],
-        cardDistance: '6km | Est. 1h 30 min',
-        cardSightings: [{icon: 'fa-leaf', tooltiptext: 'Flora Fauna'}, {icon: 'fa-paw', tooltiptext:'Coney Island Cow'}],
-        cardDescription: 'Discover the vibrant and thrilling Coney Island in Singapore, a hiker\'s paradise teeming with scenic trails, rich biodiversity, and stunning coastal views. Embark on an adventure where you can explore lush forests, spot diverse wildlife, and enjoy serene beachfronts, all within a nature lover\'s dream escape.'
-    }) %>
+    <!--Bukit Batok Nature Park Walking Trail-->
+    <%- include('partials/search-card', {
+      cardClasses: 'region-west type-park trail-walk sight-ff sight-animal',
+      cardLink: 'https://www.nparks.gov.sg/~/media/nparks-real-content/gardens-parks-and-nature/diy-walk/diy-walk-pdf-files/bukit-batok-nature-park-walking-trail.pdf?la=en',
+      cardImage: '/assets/img/bukit-batok-nature.jpeg',
+      cardAltText: 'bukit batok nature park',
+      cardHeaderSubtext: '',
+      cardTitle: 'Bukit Batok Nature Park Walking Trail',
+      cardPills: ['West','Paved Trails','Nature Park', 'Casual Walk', 'Family-friendly'],
+      cardDistance: '2km | Est. 1hr 30min',
+      cardSightings: [{icon: 'fa-leaf', tooltiptext: 'Flora Fauna'}, {icon:'fas fa-crow', tooltiptext:'Red Junglefowl, Asian Koel, Crimson Sunbird'}],
+      cardDescription: 'This 36-hectare park offers a trail that meanders through a well-established secondary forest. As you walk through the forest, look out for interesting trees highlighted in this guide. This park holds some historical significance. It was once mined for granite; the quarry has since become a large reflecting pool. As you embark on the ascent to the top of the hill, stop at the lookout points that offer vantage views of the quarry pool. This trail also takes you to a war memorial at the top of the hill, and to the quarry pool at its foot.'
+  }) %>
+      
+    <%- include('partials/search-card', {
+      cardClasses: 'region-north type-park trail-walk trail-forest',
+      cardLink: 'https://www.nparks.gov.sg/-/media/nparks-real-content/gardens-parks-and-nature/diy-walk/diy-walk-pdf-files/diy-coney-island-brochure.pdf',
+      cardImage: '/assets/img/coney-island-park.jpeg',
+      cardAltText: 'Coney island park',
+      cardHeaderSubtext: 'Recommended by Hikelah',
+      cardTitle: 'Coney Island',
+      cardPills: ['North', 'Mixed Trail', 'Nature Park', 'Bike-friendly'],
+      cardDistance: '6km | Est. 1h 30 min',
+      cardSightings: [{icon: 'fa-leaf', tooltiptext: 'Flora Fauna'}, {icon: 'fa-paw', tooltiptext:'Coney Island Cow'}],
+      cardDescription: 'Discover the vibrant and thrilling Coney Island in Singapore, a hiker\'s paradise teeming with scenic trails, rich biodiversity, and stunning coastal views. Embark on an adventure where you can explore lush forests, spot diverse wildlife, and enjoy serene beachfronts, all within a nature lover\'s dream escape.'
+  }) %>
+
+         <!--Eastern Corridor-->
+         <%- include('partials/search-card', {
+          cardClasses: 'region-east type-challenge trail-walk sight-ff sight-animal',
+          cardLink: 'https://thesmartlocal.com/read/eastern-corridor-cycling-guide/',
+          cardImage: '/assets/img/eastern-corridor.jpeg',
+          cardAltText: 'East Corridor',
+          cardHeaderSubtext: '',
+          cardTitle: 'Eastern Corridor',
+          cardPills: ['East', 'Challenge Trail', 'Paved Trails', 'Bike-friendly'],
+          cardDistance: '18km | Est. 2h 15min',
+          cardSightings: [{icon: 'fa-leaf', tooltiptext: 'Flora Fauna', icon:'fas fa-crow', tooltiptext:'bird bird'}],
+          cardDescription: 'The Eastern Corridor is an 18 km route of park connectors, gradually completed since its announcement in 2021. Half of the route runs along scenic waterways enhanced under PUB\'s Active, Beautiful, Clean Waters (ABC Waters) Programme, offering park visitors a picturesque cycling experience in the east. With multi-tiered landscaping that enhances greenery and attracts biodiversity, this corridor provides abundant opportunities for the community to explore parks and nature areas.'
+      }) %>
   
       <!-- Punggol Promenade Nature Walk -->
       <%- include('partials/search-card', {
         cardClasses: 'region-north type-connector trail-walk sight-ff',
-        cardLink: '/views/index.ejs',
+        cardLink: 'https://www.punggol.com/punggol-promenade.html',
         cardImage: '/assets/img/punggol-promenade.jpeg',
-        cardAltText: 'XXX',
-        cardHeaderSubtext: 'Park Connector',
+        cardAltText: 'Punggol Promenade',
+        cardHeaderSubtext: '',
         cardTitle: 'Punggol Promenade Nature Walk',
-        cardPills: ['Casual', 'Cycling-friendly'],
+        cardPills: ['North','Park Connector', 'Paved Trails','Family-friendly', 'Bike-friendly'],
         cardDistance: '2.5km | Est. 1h 00min',
         cardSightings: [{icon: 'fa-leaf', tooltiptext: 'Flora Fauna'}], 
         cardDescription: 'Linking Punggol Point to Punggol East, Punggol Promenade is a dynamic waterfront destination offering access to Singapore\'s rustic northeastern coastline. Explore three unique zones—Riverside Walk, Nature Walk, and Punggol Point Walk—each providing distinct recreational experiences. Embark on the 2.4 km Nature Walk, featuring fishing platforms and rest shelters along a scenic, winding track perfect for a peaceful retreat and breathtaking views.'
     }) %>
-    
-
-      <!-- Round island PCN -->
-      <%- include('partials/search-card', {
-        cardClasses: 'region-north region-south region-east region-west region-central type-challenge trail-walk ff-sight',
-        cardLink: '/views/index.ejs',
-        cardImage: '/assets/img/round-island.jpeg',
-        cardAltText: 'Round island PCN',
-        cardHeaderSubtext: 'Challenge Trail',
-        cardTitle: 'Round Island Park Connector',
-        cardPills: ['Difficult', 'Cycling-friendly'],
-        cardDistance: '150km | Est. 10h 30 min',
-        cardSightings: [{icon: 'fa-leaf', tooltiptext: 'Flora Fauna'}, {icon: 'fa-paw', tooltiptext:'Small animals'}],
-        cardDescription: 'The Round Island Route (RIR), a continuous 150km park connector, is part of NParks\' vision for a 360km island-wide network of recreational trails. Upon completion, the RIR will be the longest link in this network, offering abundant opportunities for hiking, cycling, and nature-based recreation. This trail will also enhance ecological connectivity between natural habitats, bolstering Singapore’s ecological resilience.'
-    }) %>
-    
 
     <!-- Rail Corridor -->
     <%- include('partials/search-card', {
-      cardClasses: 'region-west region-central type-park trail-walk sight-ff sight-animal',
-      cardLink: '/views/index.ejs',
+      cardClasses: 'region-west region-central type-park trail-walk',
+      cardLink: 'https://www.timeout.com/singapore/things-to-do/the-ultimate-guide-to-the-rail-corridor-in-singapore',
       cardImage: '/assets/img/rail-corridor.jpeg',
       cardAltText: 'Coney island park',
-      cardHeaderSubtext: 'Nature Park',
+      cardHeaderSubtext: 'Recommended by Hikelah',
       cardTitle: 'Rail Corridor',
-      cardPills: ['Casual', 'Paved trails', 'Heritage walk'],
+      cardPills: ['West-Central', 'Nature Park', 'Paved Trails', 'Family-friendly'],
       cardDistance: '24km | Est. 3h 20min',
       cardSightings: [{icon: 'fa-leaf', tooltiptext: 'Flora Fauna'}],
       cardDescription: 'The Rail Corridor, once a bustling railway line connecting Singapore to the Malay Peninsula, has been transformed into a vibrant open space since the return of railway land in 2011. Now a continuous green corridor through the heart of Singapore, it invites communities to create new memories while exploring its scenic paths and rich history.'
   }) %>
-  
-      <!--Eastern Corridor-->
-      <%- include('partials/search-card', {
-        cardClasses: 'region-east type-challenge trail-walk sight-ff sight-animal',
-        cardLink: '/views/index.ejs',
-        cardImage: '/assets/img/eastern-corridor.jpeg',
-        cardAltText: 'Coney island park',
-        cardHeaderSubtext: 'Challenge Trail',
-        cardTitle: 'Eastern Corridor',
-        cardPills: ['Moderate', 'Paved trails', 'Cycling-friendly'],
-        cardDistance: '18km | Est. 2h 15min',
-        cardSightings: [{icon: 'fa-leaf', tooltiptext: 'Flora Fauna', icon:'fa-paw', tooltiptext:'Small animals'}],
-        cardDescription: 'The Eastern Corridor is an 18 km route of park connectors, gradually completed since its announcement in 2021. Half of the route runs along scenic waterways enhanced under PUB\'s Active, Beautiful, Clean Waters (ABC Waters) Programme, offering park visitors a picturesque cycling experience in the east. With multi-tiered landscaping that enhances greenery and attracts biodiversity, this corridor provides abundant opportunities for the community to explore parks and nature areas.'
-    }) %>
-    
 
     <!--Bidadari Park Connector-->
     <%- include('partials/search-card', {
-      cardClasses: 'region-central type-connector trail-walk sight-ff sight-animal',
+      cardClasses: 'region-central region-east type-connector trail-walk sight-ff sight-animal',
       cardLink: '/views/index.ejs',
       cardImage: '/assets/img/bidadari-park.jpeg',
       cardAltText: 'Coney island park',
-      cardHeaderSubtext: 'Park Connector',
+      cardHeaderSubtext: '',
       cardTitle: 'Bidadari Park Connector',
-      cardPills: ['Casual', 'Cycling-friendly'],
+      cardPills: ['East-Central','Park Connector', 'Paved Trails', 'Bike-friendly'],
       cardDistance: '1km | Est. 30min',
       cardSightings: [{icon:'fa-leaf', tooltiptext:'Flora Fauna'}],
       cardDescription: 'Bidadari Park Connector is a 4m wide pathway offering seamless recreational access to the upcoming Bidadari Park, featuring unique attractions like Alkaff Lake, Heritage Walk, Woodlands Core, and the Memorial Garden. This lush, biodiversity-rich route also links one of the five nature ways to the main park, enhancing the overall connectivity and visitor experience.'
@@ -184,11 +181,11 @@
       cardLink: '/views/index.ejs',
       cardImage: '/assets/img/treetop-walk.jpeg',
       cardAltText: 'Coney island park',
-      cardHeaderSubtext: 'Park Connector',
+      cardHeaderSubtext: '',
       cardTitle: 'TreeTop Walk (From Windsor Nature Park)',
-      cardPills: ['Casual', 'Cycling-friendly'],
+      cardPills: ['Central','Nature Park', "Offroad Trails", 'Family-friendly' ],
       cardDistance: '5km | Est. 1h 30min',
-      cardSightings: [{icon:'fa-leaf', tooltiptext:'Flora Fauna'}],
+      cardSightings: [{icon:'fa-leaf', tooltiptext:'Flora Fauna'}, {icon:'fas fa-crow', tooltiptext:'Chestnut-bellied Malkoha, White-bellied Sea Eagle, Red-eyed Bulbul'}],
       cardDescription: 'This trail takes you from Windsor Nature Park to TreeTop Walk, a 250m-long freestanding suspension bridge between the two highest points in the Central Catchment Nature Reserve (MacRitchie), and the first of its kind in Singapore. From the suspension bridge, you may delight in a bird‚Äôs eye view of the forest canopy and spot different wildlife in their natural habitat. You can also enjoy panoramic views of the verdant greenery of the Central Catchment Nature Reserve and the placid waters of Upper Peirce Reservoir.'
   }) %>
   
@@ -196,48 +193,59 @@
     <!--Marang and Faber Walk Trail-->
     <%- include('partials/search-card', {
       cardClasses: 'region-south type-park trail-walk sight-ff sight-animal',
-      cardLink: '/views/index.ejs',
+      cardLink: 'https://eunicetan.co/marang-trail-singapore/',
       cardImage: '/assets/img/marang-faber.webp',
       cardAltText: 'Marang, Faber Walk',
-      cardHeaderSubtext: 'Nature Park',
+      cardHeaderSubtext: 'Recommended by Hikelah',
       cardTitle: 'Marang and Faber Walk Trail',
-      cardPills: ['Casual', 'Bird-spotting', 'Stair-stepper'],
+      cardPills: ['South', 'Nature Park', 'Mixed Trail'],
       cardDistance: '3km | Est. 1h 15min',
       cardSightings: [{icon: 'fa-leaf', tooltiptext: 'Flora Fauna', icon:'fa-paw', tooltiptext:'Small animals'}],
       cardDescription: 'The loud chirping of cicadas breaks the silence of the forest as you step off the escalator exiting the MRT station and enter the Marang Trail. If you are lucky, you might spot a Racket-tailed Drongo, Black-naped Oriole and other birds amid the lush greenery. At the top of Marang Trail, the mostly sheltered Faber Walk takes you on a loop around the peak of Mt  Faber. Follow the paved walkwats to enjoy spectacular views of the southern part of Singapore and the Southern Islands.'
   }) %>
   
 
-    <!--Bukit Batok Nature Park Walking Trail-->
-    <%- include('partials/search-card', {
-      cardClasses: 'region-west type-park trail-walk sight-ff sight-animal',
-      cardLink: '/views/index.ejs',
-      cardImage: '/assets/img/bukit-batok-nature.jpeg',
-      cardAltText: 'bukit batok nature park',
-      cardHeaderSubtext: 'Nature Park',
-      cardTitle: 'Bukit Batok Nature Park Walking Trail',
-      cardPills: ['Casual', 'Quarry walk'],
-      cardDistance: '2km | Est. 1hr 30min',
-      cardSightings: [{icon: 'fa-leaf', tooltiptext: 'Flora Fauna', icon:'fa-paw', tooltiptext:'Small animals'}],
-      cardDescription: 'This 36-hectare park offers a trail that meanders through a well-established secondary forest. As you walk through the forest, look out for interesting trees highlighted in this guide. This park holds some historical significance. It was once mined for granite; the quarry has since become a large reflecting pool. As you embark on the ascent to the top of the hill, stop at the lookout points that offer vantage views of the quarry pool. This trail also takes you to a war memorial at the top of the hill, and to the quarry pool at its foot.'
-  }) %>
-  
-
     <!--Western Adventure Loop-->
     <%- include('partials/search-card', {
-      cardClasses: 'region-west type-challenge trail-walk sight-ff sight-animal',
+      cardClasses: 'region-west type-challenge trail-walk',
       cardLink: '/views/index',
       cardImage: '/assets/img/western-adventure-loop.jpeg',
       cardAltText: 'Western adventure Loop',
-      cardHeaderSubtext: 'Challenge Trail',
+      cardHeaderSubtext: '',
       cardTitle: 'Western Adventure Loop',
-      cardPills: ['Moderate', 'Cycling-friendly'],
+      cardPills: ['West', 'Challenge Trails','Paved Trails', 'Bike-friendly'],
       cardDistance: '20km | Est. 2h 30min',
       cardSightings: [{icon:'fa-leaf', tooltiptext:'Flora Fauna'}],
       cardDescription: 'The 20-kilometre Western Adventure Loop connects eight parks in western Singapore, including Zhenghua Park, Dairy Farm Nature Park, and Bukit Batok Nature Park. Perfect for thrill-seekers, it offers green corridors, nature reserves, and trails for activities like jogging, cycling, rollerblading, mountain biking, and rock climbing. With scenic views, rich biodiversity, and family-friendly facilities, this loop is a refreshing escape and adventure hub for everyone.'
   }) %>
 
-  </div>
+      <!--Southern Ridges-->
+      <%- include('partials/search-card', {
+        cardClasses: 'region-south type-park trail-walk',
+        cardLink: 'https://beta.nparks.gov.sg/docs/default-source/parks-docs/shared/hortpark-southern-ridges-diy-walk.pdf',
+        cardImage: '/assets/img/southern-ridges.webp',
+        cardAltText: 'Southern Ridges',
+        cardHeaderSubtext: '',
+        cardTitle: 'Southern Ridges',
+        cardPills: ['South', 'Nature Park','Paved Trails', 'Bike-friendly'],
+        cardDistance: '10km | Est. 2h 10min',
+        cardSightings: [{icon:'fa-leaf', tooltiptext:'Flora Fauna'}],
+        cardDescription: 'The Southern Ridges comprise 10 kilometres of trails connecting three parks along the southern ridge of Singapore. Some of the attractions along these trails include its greenery and the connecting bridges.'
+    }) %>
+
+    <!-- Round island PCN -->
+    <%- include('partials/search-card', {
+      cardClasses: 'region-north region-south region-east region-west region-central type-challenge trail-walk ff-sight',
+      cardLink: 'https://pcn.nparks.gov.sg/know-our-pcn/rir/',
+      cardImage: '/assets/img/round-island.jpeg',
+      cardAltText: 'Round island PCN',
+      cardHeaderSubtext: '',
+      cardTitle: 'Round Island Park Connector',
+      cardPills: ['Island-wide', 'Challenge Trail', 'Paved Trails', 'Bike-friendly'],
+      cardDistance: [' 150km | Est. 10h 30 min'],
+      cardSightings: [{icon: 'fas fa-leaf', tooltiptext: 'Native species'}, {icon: 'fa-paw', tooltiptext:'Smooth-coated otter, Brahminy Kite'}],
+      cardDescription: 'The Round Island Route (RIR), a continuous 150km park connector, is part of NParks\' vision for a 360km island-wide network of recreational trails. Upon completion, the RIR will be the longest link in this network, offering abundant opportunities for hiking, cycling, and nature-based recreation. This trail will also enhance ecological connectivity between natural habitats, bolstering Singapore’s ecological resilience.'
+  }) %>
   
 
 
