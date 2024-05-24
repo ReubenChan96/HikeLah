@@ -341,6 +341,13 @@
         color: #a9a9a9;;
     }
 
+    .gm-svpc div {
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: left;
+        }
+
     /* search basic styles */
 
     .filter-card {

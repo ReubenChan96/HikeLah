@@ -36,7 +36,11 @@
       <%- include('partials/navbar.ejs'); %>
 
       <div class="container alert alert-primary alert-dismissible fade show" role="alert">
-        <strong>Tip:</strong> Explore our custom map complete with detailed trail visualisations, hover over trails to find out their name and trail type!
+        <h4 class="alert-heading">Tips to start</h4> 
+        <hr>
+        <li>Explore the highly detailed rendering of Singapore's trails (highlighted in GREEN)</li>
+        <li>Hover over trails to find out their name and trail type</li>
+        <li>Use pegman (yellow man) to get an intimate first-person view of trails</li>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
 
@@ -49,8 +53,7 @@
           <div class="row justify-content-center">
               <div clas="col-12">
                 <div id="map"></div>
-                <script src="/js/script.js"></script>
-                <script src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&callback=initMap" async defer></script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&callback=initMap&libraries=places" async defer></script>
                 <script>
                   console.log('Google Maps API scipt loaded')
                 </script>

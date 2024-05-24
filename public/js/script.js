@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 // Map Logic, loads map styles before the page 
-  let map; 
+  let map;
   let infoWindow;
 
   const mapStyles = [
@@ -369,7 +369,8 @@ document.addEventListener('DOMContentLoaded', function() {
       center: { lat: 1.291806, lng: 103.8495 }, // Centered at Funan Mall, Singapore cuz easter egg lol
       zoom: 17,
       mapTypeId: google.maps.MapTypeId.TERRAIN,
-      styles: mapStyles
+      styles: mapStyles,
+      streetViewControl: true,
       });
 
     // GeoJSON Data Link - loads geojson file from data/merged-Nparks trails and sets the styles 
@@ -596,13 +597,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
-
-
-
-
-
-
-
-
 
