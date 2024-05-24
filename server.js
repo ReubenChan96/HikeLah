@@ -35,10 +35,12 @@ app.get('/useful-links', (req, res) => {
     res.render('useful-links');
 });
 
+// Render Explore page with the generic google maps API key found in the .env file 
 app.get('/map', (req, res) => {
     res.render('map', { apiKey: process.env.GOOGLE_MAPS_API_KEY });
 });
 
+// Listens for which local host it is running on, because i used 3000, 4000 at different points in time
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

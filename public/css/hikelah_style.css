@@ -1,9 +1,4 @@
 
-/* 
-<uniquifier>: Use a unique and descriptive class name
- <weight>: Use a value from 100 to 900 
- */
-
  body {
     background-color:#FFF9EC!important;
     font-family: "Inter", sans-serif !important;
@@ -24,9 +19,10 @@
     }
 }
 
+/* media query for mobile devices */
 @media (max-width: 576px) {
     .logo {
-        width: 60px; /* Smaller width for mobile devices */
+        width: 60px;
         height: auto;
     }
 }
@@ -76,7 +72,7 @@
     .collapse .navbar-nav {
         flex-direction: column;
         align-items: flex-end;
-    } /* Right-align text when collapsed */
+    } 
 
     .navbar-nav .nav-link:hover {
         text-decoration: underline;
@@ -140,6 +136,10 @@
         color: #3d550c;
     }
 
+    .problem-statement {
+        color: #3d550c !important;
+    }
+
     .thin {
         font-weight: lighter;
     }
@@ -184,6 +184,8 @@
             flex-direction: row;
         }
     }
+
+
     
 /* Page header/footer */
 
@@ -212,9 +214,6 @@
     font-size: 24px;
     font-weight: 200;
 }
-
-
-
 
 /* utility classes */
     .text-align-right {
@@ -255,8 +254,8 @@
         all: unset;
         display: inline;
         cursor: pointer;
-        color: inherit; /* Retain the font color */
-        font: inherit; /* Retain the font style */
+        color: inherit;
+        font: inherit; 
     }
     
     h4.h4-card a.no_style_card {
@@ -264,7 +263,7 @@
     }
     
     h4.h4-card a.no_style_card:hover {
-        text-decoration: underline; /* Add underline on hover */
+        text-decoration: underline; 
     }
 
     .mytooltip {
@@ -286,7 +285,7 @@
         z-index: 1051;
         bottom: 125%; /* Position the tooltip above the text */
         left: 50%;
-        margin-left: -60px; /* Center the tooltip */
+        margin-left: -60px; 
       }
 
       .mytooltip:hover .mytooltiptext {
@@ -295,23 +294,24 @@
 
 /* Custom Buttons */
 
-/* Social Media */
+    /* Social Media */
 
     .btn-github {
         background-color: #333 !important;
         border-color: #323232 !important;
     }
     
-    .btn-linkedin {
+   .btn-linkedin {
         background-color: #0a66c2 !important;
         border-color: #0a66c2 !important;
     }
     
     .btn-github,
     .btn-linkedin {
-        color: #fff; /* Text color */
+        color: #fff; 
     }
-    
+
+
   /* map UI */
     #map {
         height: 600px !important;
@@ -385,8 +385,6 @@
         border-color: #6BA51A;
     }
     
-    
-
     .search .search-card-link {
         text-decoration: none;
         color: inherit;
@@ -401,7 +399,7 @@
     .search .search-card-table td, 
     .search .search-card-table th {
         border: none;
-        width: 33.33%; /* Ensure equal width for each column */
+        width: 33.33%; 
     }
     
     .search .search-card-img {
@@ -416,26 +414,26 @@
     }
 
     .search .search-header-subtext {
-        font-size: 0.875rem; /* Smaller font size */
-        font-style: italic; /* Italic text */
-        font-weight: 300; /* Light text */
-        color: #6c757d; /* Light text color */
-        margin-bottom: 0.25em; /* Narrow space between subtext and title */
+        font-size: 0.875rem; 
+        font-style: italic; 
+        font-weight: 300; 
+        color: #6c757d; 
+        margin-bottom: 0.25em; 
     }
 
     .search .search-icon {
-        font-size: 1.25em; /* Adjust icon size as needed */
-        color: #3D550C; /* Color of the icons, adjust as needed */
-        margin: 0 8px 8px 0; /* Add spacing around the icons */
+        font-size: 1.25em;
+        color: #3D550C;
+        margin: 0 8px 8px 0; 
     }
 
     .search .pill {
         padding: 0.25em 0.75em;
-        background-color: #6BA51A; /* Background color for the pill */
+        background-color: #6BA51A;
         color: white;
-        border-radius: 25px; /* Rounded corners for the pill shape */
-        display: inline-block; /* Ensures the pill hugs the text */
-        margin: 4px; /* Adds some spacing around the pills */
+        border-radius: 15px; 
+        display: inline-block; 
+        margin: 4px; 
     }
 
     .search .pill:first-child {
@@ -458,9 +456,19 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        flex: 0 0 66.67%; /* Make sure it takes up 2/3 of the space */
+        flex: 0 0 66.67%; 
         padding-left: 16px;
         box-sizing: border-box;
     }
+
+    .filter-pill {
+        background-color:#6BA51A;
+        color: white; 
+        border-radius: 25px;
+        padding: 5px 10px;
+        margin-right: 5px;
+        cursor: pointer;
+    }
+
 
     
