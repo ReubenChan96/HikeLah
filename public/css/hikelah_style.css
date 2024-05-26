@@ -266,6 +266,10 @@
         text-decoration: underline; 
     }
 
+    a.no-underline {
+        text-decoration: none;
+    }
+
     .mytooltip {
         position: relative;
         display: inline-block;
