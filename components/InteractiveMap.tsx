@@ -8,8 +8,15 @@ type GMaps = any;
 declare global {
   interface Window {
     google?: { maps: GMaps };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any;
   }
 }
+
+// Module-level singleton: prevents double-loading Google Maps across Strict Mode re-mounts
+const GMAPS_CALLBACK = '__hikelahInteractiveMapReady__';
+let gmapsState: 'idle' | 'loading' | 'loaded' = 'idle';
+const pendingInits: (() => void)[] = [];
 
 const MAP_STYLES = [
   { elementType: 'geometry', stylers: [{ color: '#ebe3cd' }] },
@@ -62,11 +69,10 @@ export default function InteractiveMap({ apiKey }: { apiKey: string }) {
   const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const callbackName = `initInteractiveMap_${Date.now()}`;
+    let cancelled = false;
 
     function initMap() {
-      if (!mapRef.current || !window.google) return;
-      // Guard: don't re-init if map already rendered in this container
+      if (cancelled || !mapRef.current || !window.google) return;
       if ((mapRef.current as HTMLElement & { _mapInitialized?: boolean })._mapInitialized) return;
       (mapRef.current as HTMLElement & { _mapInitialized?: boolean })._mapInitialized = true;
       const G = window.google.maps;
@@ -158,23 +164,41 @@ export default function InteractiveMap({ apiKey }: { apiKey: string }) {
       });
     }
 
-    // If Google Maps is already loaded (e.g. Strict Mode double-invoke), init directly
-    if (window.google?.maps) {
+    if (gmapsState === 'loaded' || window.google?.maps) {
       initMap();
-      return;
+      return () => { cancelled = true; };
     }
 
-    (window as unknown as Record<string, unknown>)[callbackName] = initMap;
+    // Queue this init to run once the script loads
+    pendingInits.push(initMap);
+
+    if (gmapsState === 'loading') {
+      // Script already in flight — just wait
+      return () => {
+        cancelled = true;
+        const i = pendingInits.indexOf(initMap);
+        if (i > -1) pendingInits.splice(i, 1);
+      };
+    }
+
+    // First loader: create the script
+    gmapsState = 'loading';
+    window[GMAPS_CALLBACK] = () => {
+      gmapsState = 'loaded';
+      const cbs = pendingInits.splice(0);
+      cbs.forEach(cb => cb());
+    };
 
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=${callbackName}`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=${GMAPS_CALLBACK}`;
     script.async = true;
     script.defer = true;
     document.head.appendChild(script);
 
     return () => {
-      if (document.head.contains(script)) document.head.removeChild(script);
-      delete (window as unknown as Record<string, unknown>)[callbackName];
+      cancelled = true;
+      const i = pendingInits.indexOf(initMap);
+      if (i > -1) pendingInits.splice(i, 1);
     };
   }, [apiKey]);
 

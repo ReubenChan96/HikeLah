@@ -15,17 +15,24 @@ type GoogleMaps = any;
 declare global {
   interface Window {
     google?: { maps: GoogleMaps };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any;
   }
 }
+
+// Module-level singleton shared with InteractiveMap — same Google Maps script
+const GMAPS_CALLBACK = '__hikelahInteractiveMapReady__';
+let gmapsState: 'idle' | 'loading' | 'loaded' = 'idle';
+const pendingInits: (() => void)[] = [];
 
 export default function TrailMap({ lat, lng, trailName, apiKey }: TrailMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const callbackName = `initTrailMap_${Date.now()}`;
+    let cancelled = false;
 
     function initMap() {
-      if (!mapRef.current || !window.google) return;
+      if (cancelled || !mapRef.current || !window.google) return;
       const position = { lat, lng };
       const map = new window.google.maps.Map(mapRef.current, {
         center: position,
@@ -55,22 +62,38 @@ export default function TrailMap({ lat, lng, trailName, apiKey }: TrailMapProps)
       });
     }
 
-    if (window.google?.maps) {
+    if (gmapsState === 'loaded' || window.google?.maps) {
       initMap();
-      return;
+      return () => { cancelled = true; };
     }
 
-    (window as unknown as Record<string, unknown>)[callbackName] = initMap;
+    pendingInits.push(initMap);
+
+    if (gmapsState === 'loading') {
+      return () => {
+        cancelled = true;
+        const i = pendingInits.indexOf(initMap);
+        if (i > -1) pendingInits.splice(i, 1);
+      };
+    }
+
+    gmapsState = 'loading';
+    window[GMAPS_CALLBACK] = () => {
+      gmapsState = 'loaded';
+      const cbs = pendingInits.splice(0);
+      cbs.forEach(cb => cb());
+    };
 
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=${callbackName}`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=${GMAPS_CALLBACK}`;
     script.async = true;
     script.defer = true;
     document.head.appendChild(script);
 
     return () => {
-      if (document.head.contains(script)) document.head.removeChild(script);
-      delete (window as unknown as Record<string, unknown>)[callbackName];
+      cancelled = true;
+      const i = pendingInits.indexOf(initMap);
+      if (i > -1) pendingInits.splice(i, 1);
     };
   }, [lat, lng, trailName, apiKey]);
 
