@@ -55,6 +55,11 @@ export default function TrailMap({ lat, lng, trailName, apiKey }: TrailMapProps)
       });
     }
 
+    if (window.google?.maps) {
+      initMap();
+      return;
+    }
+
     (window as unknown as Record<string, unknown>)[callbackName] = initMap;
 
     const script = document.createElement('script');
@@ -64,7 +69,7 @@ export default function TrailMap({ lat, lng, trailName, apiKey }: TrailMapProps)
     document.head.appendChild(script);
 
     return () => {
-      document.head.removeChild(script);
+      if (document.head.contains(script)) document.head.removeChild(script);
       delete (window as unknown as Record<string, unknown>)[callbackName];
     };
   }, [lat, lng, trailName, apiKey]);

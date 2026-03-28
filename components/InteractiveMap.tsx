@@ -66,6 +66,9 @@ export default function InteractiveMap({ apiKey }: { apiKey: string }) {
 
     function initMap() {
       if (!mapRef.current || !window.google) return;
+      // Guard: don't re-init if map already rendered in this container
+      if ((mapRef.current as HTMLElement & { _mapInitialized?: boolean })._mapInitialized) return;
+      (mapRef.current as HTMLElement & { _mapInitialized?: boolean })._mapInitialized = true;
       const G = window.google.maps;
 
       const map = new G.Map(mapRef.current, {
@@ -153,6 +156,12 @@ export default function InteractiveMap({ apiKey }: { apiKey: string }) {
         infoWindow.setPosition(event.latLng);
         infoWindow.open(map);
       });
+    }
+
+    // If Google Maps is already loaded (e.g. Strict Mode double-invoke), init directly
+    if (window.google?.maps) {
+      initMap();
+      return;
     }
 
     (window as unknown as Record<string, unknown>)[callbackName] = initMap;
