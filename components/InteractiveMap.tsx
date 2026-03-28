@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { GMAPS_CALLBACK, gmaps } from '@/lib/gmaps';
+import { GMAPS_CALLBACK, gmaps, buildScriptSrc, MAP_ID } from '@/lib/gmaps';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type GMaps = any;
@@ -14,47 +14,6 @@ declare global {
   }
 }
 
-const MAP_STYLES = [
-  { elementType: 'geometry', stylers: [{ color: '#ebe3cd' }] },
-  { elementType: 'labels.text.fill', stylers: [{ color: '#523735' }] },
-  { elementType: 'labels.text.stroke', stylers: [{ color: '#f5f1e6' }] },
-  { featureType: 'administrative', elementType: 'geometry.stroke', stylers: [{ color: '#c9b2a6' }] },
-  { featureType: 'administrative.land_parcel', elementType: 'geometry.stroke', stylers: [{ color: '#dcd2be' }] },
-  { featureType: 'administrative.land_parcel', elementType: 'labels', stylers: [{ visibility: 'off' }] },
-  { featureType: 'administrative.land_parcel', elementType: 'labels.text.fill', stylers: [{ color: '#ae9e90' }] },
-  { featureType: 'landscape.natural', elementType: 'geometry', stylers: [{ color: '#dfd2ae' }] },
-  { featureType: 'poi', elementType: 'geometry', stylers: [{ color: '#dfd2ae' }] },
-  { featureType: 'poi', elementType: 'labels.text.fill', stylers: [{ color: '#93817c' }] },
-  { featureType: 'poi.business', elementType: 'geometry.fill', stylers: [{ visibility: 'off' }] },
-  { featureType: 'poi.government', elementType: 'geometry.fill', stylers: [{ visibility: 'off' }] },
-  { featureType: 'poi.medical', elementType: 'geometry.fill', stylers: [{ visibility: 'off' }] },
-  { featureType: 'poi.medical', elementType: 'labels.icon', stylers: [{ visibility: 'off' }] },
-  { featureType: 'poi.medical', elementType: 'labels.text', stylers: [{ visibility: 'off' }] },
-  { featureType: 'poi.park', elementType: 'geometry.fill', stylers: [{ color: '#a5b076' }] },
-  { featureType: 'poi.park', elementType: 'labels.text.fill', stylers: [{ color: '#447530' }] },
-  { featureType: 'poi.place_of_worship', stylers: [{ visibility: 'off' }] },
-  { featureType: 'poi.place_of_worship', elementType: 'labels.icon', stylers: [{ visibility: 'off' }] },
-  { featureType: 'poi.school', elementType: 'geometry.fill', stylers: [{ visibility: 'off' }] },
-  { featureType: 'poi.school', elementType: 'geometry.stroke', stylers: [{ visibility: 'off' }] },
-  { featureType: 'poi.school', elementType: 'labels.icon', stylers: [{ visibility: 'off' }] },
-  { featureType: 'poi.school', elementType: 'labels.text', stylers: [{ visibility: 'off' }] },
-  { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#f5f1e6' }] },
-  { featureType: 'road.arterial', elementType: 'geometry', stylers: [{ color: '#fdfcf8' }] },
-  { featureType: 'road.highway', elementType: 'geometry', stylers: [{ color: '#f8c967' }] },
-  { featureType: 'road.highway', elementType: 'geometry.stroke', stylers: [{ color: '#e9bc62' }] },
-  { featureType: 'road.highway.controlled_access', elementType: 'geometry', stylers: [{ color: '#e98d58' }] },
-  { featureType: 'road.highway.controlled_access', elementType: 'geometry.stroke', stylers: [{ color: '#db8555' }] },
-  { featureType: 'road.local', elementType: 'labels', stylers: [{ visibility: 'off' }] },
-  { featureType: 'road.local', elementType: 'labels.text.fill', stylers: [{ color: '#806b63' }] },
-  { featureType: 'transit.line', elementType: 'geometry', stylers: [{ color: '#dfd2ae' }] },
-  { featureType: 'transit.line', elementType: 'labels.text.fill', stylers: [{ color: '#8f7d77' }] },
-  { featureType: 'transit.line', elementType: 'labels.text.stroke', stylers: [{ color: '#ebe3cd' }] },
-  { featureType: 'transit.station', elementType: 'geometry', stylers: [{ color: '#dfd2ae' }] },
-  { featureType: 'transit.station.airport', elementType: 'geometry.fill', stylers: [{ visibility: 'off' }] },
-  { featureType: 'transit.station.airport', elementType: 'geometry.stroke', stylers: [{ visibility: 'off' }] },
-  { featureType: 'water', elementType: 'geometry.fill', stylers: [{ color: '#b9d3c2' }] },
-  { featureType: 'water', elementType: 'labels.text.fill', stylers: [{ color: '#92998d' }] },
-];
 
 const POINTS = [
   { lat: 1.409472, lng: 103.921667, info: 'Coney Island Nature Trail' },
@@ -72,12 +31,16 @@ export default function InteractiveMap({ apiKey }: { apiKey: string }) {
       if ((mapRef.current as HTMLElement & { _mapInitialized?: boolean })._mapInitialized) return;
       (mapRef.current as HTMLElement & { _mapInitialized?: boolean })._mapInitialized = true;
       const G = window.google.maps;
+      // AdvancedMarkerElement lives in the marker library (pre-loaded via libraries=marker).
+      // Note: mapId is required for AdvancedMarkerElement. When mapId is set,
+      // the styles array below is ignored — configure map styling via Google Cloud Console.
+      const { AdvancedMarkerElement } = G.marker;
 
       const map = new G.Map(mapRef.current, {
         center: { lat: 1.291806, lng: 103.8495 },
-        zoom: 17,
+        zoom: 11,
         mapTypeId: G.MapTypeId.TERRAIN,
-        styles: MAP_STYLES,
+        mapId: MAP_ID,
         streetViewControl: true,
       });
 
@@ -127,7 +90,7 @@ export default function InteractiveMap({ apiKey }: { apiKey: string }) {
 
       // Hard-coded markers
       POINTS.forEach(pt => {
-        const marker = new G.Marker({ position: pt, map, title: pt.info });
+        const marker = new AdvancedMarkerElement({ position: pt, map, title: pt.info });
         const iw = new G.InfoWindow({ content: pt.info });
         marker.addListener('click', () => iw.open(map, marker));
       });
@@ -186,7 +149,7 @@ export default function InteractiveMap({ apiKey }: { apiKey: string }) {
     };
 
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=${GMAPS_CALLBACK}`;
+    script.src = buildScriptSrc(apiKey);
     script.async = true;
     script.defer = true;
     document.head.appendChild(script);

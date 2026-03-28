@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { GMAPS_CALLBACK, gmaps } from '@/lib/gmaps';
+import { GMAPS_CALLBACK, gmaps, buildScriptSrc, MAP_ID } from '@/lib/gmaps';
 
 interface TrailMapProps {
   lat: number;
@@ -29,32 +29,29 @@ export default function TrailMap({ lat, lng, trailName, apiKey }: TrailMapProps)
 
     function initMap() {
       if (cancelled || !mapRef.current || !window.google) return;
+      const G = window.google.maps;
+      // AdvancedMarkerElement requires mapId — styles array is ignored when mapId is set;
+      // configure map appearance via Google Cloud Console Map Styles for production.
+      const { AdvancedMarkerElement, PinElement } = G.marker;
       const position = { lat, lng };
-      const map = new window.google.maps.Map(mapRef.current, {
+      const map = new G.Map(mapRef.current, {
         center: position,
         zoom: 15,
-        styles: [
-          { elementType: 'geometry',              stylers: [{ color: '#e8f5e9' }] },
-          { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#b3e0f2' }] },
-          { featureType: 'road',  elementType: 'geometry', stylers: [{ color: '#ffffff' }] },
-          { featureType: 'poi.park', elementType: 'geometry', stylers: [{ color: '#c8e6c9' }] },
-        ],
+        mapId: MAP_ID,
         mapTypeControl: false,
         streetViewControl: false,
         fullscreenControl: true,
       });
-      new window.google.maps.Marker({
+      const pin = new PinElement({
+        background: '#3D550C',
+        borderColor: '#ffffff',
+        glyphColor: '#ffffff',
+      });
+      new AdvancedMarkerElement({
         position,
         map,
         title: trailName,
-        icon: {
-          path: window.google.maps.SymbolPath.CIRCLE,
-          scale: 10,
-          fillColor: '#3D550C',
-          fillOpacity: 1,
-          strokeColor: '#ffffff',
-          strokeWeight: 2,
-        },
+        content: pin.element,
       });
     }
 
@@ -81,7 +78,7 @@ export default function TrailMap({ lat, lng, trailName, apiKey }: TrailMapProps)
     };
 
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=${GMAPS_CALLBACK}`;
+    script.src = buildScriptSrc(apiKey);
     script.async = true;
     script.defer = true;
     document.head.appendChild(script);
