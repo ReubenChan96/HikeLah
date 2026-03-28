@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-HikeLah is a hiking trail discovery web app for Singapore. It is an Express + EJS application deployed on Vercel, with trail data stored in a PostgreSQL database hosted on Render.
+HikeLah is a hiking trail discovery web app for Singapore. Built with Next.js 15 (App Router) + TypeScript + Tailwind CSS, deployed on Vercel, with trail data stored in a PostgreSQL database via Supabase.
 
 - **Live URL:** https://hike-lah.vercel.app
 - **GitHub:** https://github.com/ReubenChan96/HikeLah
@@ -14,55 +14,78 @@ HikeLah is a hiking trail discovery web app for Singapore. It is an Express + EJ
 ## Commands
 
 ```bash
-npm start                  # Run locally on http://localhost:3000
+npm run dev                # Run dev server on http://localhost:3000
+npm run build              # Production build (runs type-check)
+npm start                  # Serve production build locally
 npx prisma migrate dev     # Create and apply a new DB migration
 npx prisma studio          # Open Prisma DB GUI in browser
 npx prisma db push         # Push schema changes without creating a migration file
-npx prisma db seed         # Run the seed script (if configured in package.json)
 ```
 
 ## Architecture
 
 ```
-server.js          → Express entry point, all routes, Prisma client init
-views/             → EJS templates rendered by Express
-  partials/        → Reusable navbar, footer, search-card components
+app/                        → Next.js App Router pages (server components by default)
+  layout.tsx                → Root layout: Navbar, Footer, GA4, Google Fonts
+  page.tsx                  → Home page
+  explore/page.tsx          → Fetches trails from Prisma, passes to FilterPanel
+  trails/[id]/page.tsx      → Trail detail: hero, stats, map, weather widget
+  map/page.tsx              → Passes GOOGLE_MAPS_API_KEY to InteractiveMap
+  about-me/page.tsx
+  useful-links/page.tsx
+  api/
+    trails/route.ts         → GET /api/trails → prisma.trail.findMany()
+    claude/route.ts         → POST /api/claude (501 stub, ready for Phase 3)
+components/                 → React components ('use client' where interactivity needed)
+  Navbar.tsx                → Mobile toggle via useState
+  Footer.tsx                → Dynamic year
+  FilterPanel.tsx           → Client: filter state, useMemo filtered trail list
+  TrailCard.tsx             → Trail card with image, pills, sightings tooltips
+  InteractiveMap.tsx        → Google Maps full map with GeoJSON trails overlay
+  TrailMap.tsx              → Google Maps mini-map for trail detail page
+  WeatherWidget.tsx         → data.gov.sg nowcast + 24hr forecast, haversine nearest area
+lib/
+  prisma.ts                 → Singleton PrismaClient (globalForPrisma pattern)
+  buildTrailData.ts         → Derives CSS filter classes and pill labels from DB fields
+  trailMetadata.ts          → Typed import of trail-metadata.json
+types/
+  trail.ts                  → Trail, TrailMeta, TrailSighting, TrailCardData interfaces
 public/
-  css/             → Custom styles (Bootstrap 5.3.3 loaded via CDN)
-  js/script.js     → Client-side: Google Maps init, filter logic, GA4
   data/
-    merged-NParks-tracks.geojson  → GeoJSON loaded by the map page
+    merged-NParks-tracks.geojson  → GeoJSON loaded client-side by InteractiveMap
     trail-metadata.json           → Display-only fields (images, links, pills) keyed by trail name
 prisma/
-  schema.prisma    → Trail model, PostgreSQL on Render
-  seed.js          → Seed script for populating trails + metadata
+  schema.prisma             → Trail model
+  seed.js                   → Seed script
 ```
 
 ### Data Flow
 
-- **Explore page:** `GET /explore` queries `prisma.trail.findMany()`, merges results with `trail-metadata.json` (image paths, guide URLs, formatted distance, extra pills), then renders `explore.ejs` with the merged `trails` array.
-- **Map page:** `GET /map` renders `map.ejs` with the Google Maps API key. The GeoJSON file is fetched client-side by `script.js`.
-- **Filter logic:** Entirely client-side in `script.js`. Trail cards have CSS classes like `region-north`, `type-park`, `trail-walk` that the filter checkboxes show/hide.
+- **Explore page:** `app/explore/page.tsx` (server component) calls `prisma.trail.findMany()`, merges with `trail-metadata.json` via `buildCardData()`, passes `TrailCardData[]` to `<FilterPanel>`. All filtering is client-side in FilterPanel — no DB re-fetch on filter change.
+- **Trail detail:** `app/trails/[id]/page.tsx` fetches one trail by ID, merges metadata, passes `GOOGLE_MAPS_API_KEY` down to `<TrailMap>`. `<WeatherWidget>` fetches data.gov.sg client-side.
+- **Map page:** Server component passes `apiKey` to `<InteractiveMap>`. GeoJSON fetched client-side from `/data/merged-NParks-tracks.geojson`.
 
 ### Trail Model (Prisma)
 
-The `Trail` model in `prisma/schema.prisma` uses boolean fields for region (`north`, `south`, `east`, `west`, `central`) and terrain attributes (`casualWalk`, `forestedTrail`, `floraFaunaSpotting`, `wildlifeSpotting`). Display-only data (image URLs, external guide links, formatted distance strings, extra pills like "Bike-friendly") lives in `public/data/trail-metadata.json`, keyed by trail `name`.
+Boolean fields for region (`north`, `south`, `east`, `west`, `central`) and terrain (`casualWalk`, `forestedTrail`, `floraFaunaSpotting`, `wildlifeSpotting`). `buildTrailData.ts` derives CSS filter classes from these. Display-only data (images, guide URLs, pills) lives in `trail-metadata.json`, keyed by trail `name`.
 
-### CSS Class Generation
+### Google Maps Loading
 
-`server.js` derives CSS filter classes from DB boolean fields before passing to EJS:
-- `region-{north|south|east|west|central}` from region booleans
-- `type-{park|challenge|connector}` from `trailType` string
-- `trail-forest` from `forestedTrail`, `trail-walk` from `casualWalk`
-- `sight-ff` from `floraFaunaSpotting`, `sight-animal` from `wildlifeSpotting`
+Both `InteractiveMap` and `TrailMap` use a module-level singleton (`gmapsState`, `pendingInits`, `GMAPS_CALLBACK`) to prevent double-loading Google Maps across React Strict Mode's double-invoke of `useEffect`. Never use `next/script` inside client components for Google Maps — it causes hydration issues.
+
+### CSP
+
+`next.config.ts` `headers()` sets Content Security Policy. `'unsafe-eval'` is added to `script-src` in development only (required for Next.js webpack HMR). Modifying allowed domains requires editing `next.config.ts`.
 
 ## Environment Variables
 
-Required in `.env` (see `.env.example`):
-- `DATABASE_URL` — PostgreSQL connection string (Render)
-- `GOOGLE_MAPS_API_KEY` — passed to `map.ejs` at render time
-- `ANTHROPIC_API_KEY` — reserved for future Claude integration
+Required in `.env`:
+- `DATABASE_URL` — PostgreSQL connection string (Supabase)
+- `GOOGLE_MAPS_API_KEY` — used server-side in `app/map/page.tsx` and `app/trails/[id]/page.tsx`
+- `ANTHROPIC_API_KEY` — for Phase 3 Claude AI integration
 
-## Claude Integration (Planned)
+## Tailwind Brand Colours
 
-A stub `POST /api/claude` route exists in `server.js` as an extension point. The integration use case is not yet scoped. When ready, add `@anthropic-ai/sdk` as a dependency and implement the route handler.
+Defined in `tailwind.config.ts`:
+- `brand-dark: #3D550C`, `brand-mid: #4A7212`, `brand-light: #6BA51A`
+- `brand-pale: #f0f7e6`, `brand-bg: #FFF9EC`

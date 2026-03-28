@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 const navLinks = [
   { href: '/',             label: 'Home' },
@@ -14,6 +15,12 @@ const navLinks = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  function isActive(href: string) {
+    if (href === '/') return pathname === '/';
+    return pathname.startsWith(href);
+  }
 
   return (
     <div className="container mx-auto px-4">
@@ -35,7 +42,12 @@ export default function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="px-4 py-2 text-[18px] text-[#2D3748] hover:underline hover:font-bold transition-all"
+                aria-current={isActive(link.href) ? 'page' : undefined}
+                className={`px-4 py-2 text-[18px] transition-all ${
+                  isActive(link.href)
+                    ? 'text-brand-dark font-bold underline'
+                    : 'text-[#2D3748] hover:underline hover:font-bold'
+                }`}
               >
                 {link.label}
               </Link>
@@ -66,7 +78,10 @@ export default function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="block px-4 py-2 text-[18px] text-[#2D3748] hover:underline"
+                aria-current={isActive(link.href) ? 'page' : undefined}
+                className={`block px-4 py-2 text-[18px] hover:underline ${
+                  isActive(link.href) ? 'text-brand-dark font-bold underline' : 'text-[#2D3748]'
+                }`}
                 onClick={() => setOpen(false)}
               >
                 {link.label}

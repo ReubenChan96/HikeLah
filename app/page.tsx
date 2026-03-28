@@ -11,21 +11,21 @@ const featureCards = [
     alt:   'Discover trails',
     title: 'Discover Trails',
     href:  '/explore',
-    desc:  "Learn about Singapore's major trails and park connector networks. Easy-to-consume info on distance, time, and cool animals and plants to see.",
+    desc:  "Browse 25+ curated Singapore trails with distance, difficulty, flora & fauna spotting, and everything you need to plan your next hike.",
   },
   {
     img:   '/assets/img/map.png',
     alt:   'Interactive map',
     title: 'Interactive Map',
     href:  '/map',
-    desc:  'Want to see where the trails lead? Check out our custom maps to plan your hike, find nearby public transport, landmarks, and more!',
+    desc:  'Explore the full NParks trail network on an interactive map. Find nearby MRT stations, plan your route, and see trails by type.',
   },
   {
     img:   '/assets/img/path.png',
     alt:   'Useful links',
     title: 'Useful Links',
     href:  '/useful-links',
-    desc:  "Can't find what you're looking for? Check out useful links that Hikelah recommends for more detailed information.",
+    desc:  "Curated external resources from NParks, AllTrails, and more — for when you want to dig deeper into Singapore's outdoor scene.",
   },
 ];
 
@@ -47,15 +47,22 @@ export default function HomePage() {
             Plan hikes<br />with ease!
           </h1>
           <p className="mt-4 text-base text-[#2D3748]">
-            Start exploring with Hikelah! Your one-stop local hiking companion for Singapore&apos;s
-            Park Connector Network, outdoor trails, and much more!
+            Your one-stop local hiking companion for Singapore&apos;s trails, park connector networks, and green spaces — all in one place.
           </p>
-          <Link
-            href="/explore"
-            className="inline-block mt-6 px-5 py-2 rounded-[15px] bg-brand-dark text-white font-medium text-lg hover:bg-brand-mid transition-colors"
-          >
-            Get Started
-          </Link>
+          <div className="flex flex-wrap gap-3 mt-6">
+            <Link
+              href="/explore"
+              className="inline-block px-5 py-2 rounded-[15px] bg-brand-dark text-white font-medium text-lg hover:bg-brand-mid transition-colors"
+            >
+              Find Your Trail
+            </Link>
+            <Link
+              href="/map"
+              className="inline-block px-5 py-2 rounded-[15px] border-2 border-brand-dark text-brand-dark font-medium text-lg hover:bg-brand-pale transition-colors"
+            >
+              View Map
+            </Link>
+          </div>
         </div>
         <div className="md:w-7/12">
           <Image
@@ -69,17 +76,22 @@ export default function HomePage() {
         </div>
       </div>
 
-      <br />
-      <div>
-        <p className="text-[#2D3748]">
-          Tired of walking the same paths? Unfamiliar with Singapore&apos;s trails? Plan your journey
-          with ease with our…
-        </p>
+      {/* Social proof strip */}
+      <div className="flex flex-wrap justify-center gap-6 py-4 border-y border-gray-200 my-2 text-center">
+        {[
+          { stat: '25+', label: 'Curated trails' },
+          { stat: '5',   label: 'Regions of Singapore' },
+          { stat: '3',   label: 'Trail types' },
+        ].map(({ stat, label }) => (
+          <div key={label} className="px-6">
+            <p className="text-3xl font-extrabold text-brand-dark">{stat}</p>
+            <p className="text-sm text-gray-500">{label}</p>
+          </div>
+        ))}
       </div>
-      <br />
 
       {/* Feature cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 pb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 py-8">
         {featureCards.map(card => (
           <Link key={card.href} href={card.href} className="group text-center no-underline">
             <Image

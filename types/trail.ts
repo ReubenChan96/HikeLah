@@ -55,4 +55,6 @@ export interface TrailCardData {
   cardDistance: string;
   cardSightings: TrailSighting[];
   cardDescription: string;
+  difficulty: string | null;
+  nearestMRT: string | null;
 }

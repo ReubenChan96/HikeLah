@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import type { TrailCardData } from '@/types/trail';
 import TrailCard from './TrailCard';
 
@@ -35,15 +35,23 @@ const FILTER_GROUPS = [
 export default function FilterPanel({ trails }: { trails: TrailCardData[] }) {
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const filterBarRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside the filter bar
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (filterBarRef.current && !filterBarRef.current.contains(e.target as Node)) {
+        setOpenDropdown(null);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   function toggleFilter(value: string) {
     setActiveFilters(prev =>
       prev.includes(value) ? prev.filter(f => f !== value) : [...prev, value]
     );
-  }
-
-  function removeFilter(value: string) {
-    setActiveFilters(prev => prev.filter(f => f !== value));
   }
 
   function getLabelFor(value: string): string {
@@ -65,7 +73,7 @@ export default function FilterPanel({ trails }: { trails: TrailCardData[] }) {
   return (
     <>
       {/* Filter dropdowns */}
-      <div className="flex flex-wrap justify-center gap-3 mb-4">
+      <div ref={filterBarRef} className="flex flex-wrap justify-center gap-3 mb-4">
         {FILTER_GROUPS.map(group => (
           <div key={group.label} className="relative">
             <button
@@ -97,19 +105,25 @@ export default function FilterPanel({ trails }: { trails: TrailCardData[] }) {
         ))}
       </div>
 
-      {/* Active filter pills */}
+      {/* Active filter pills + Clear All */}
       {activeFilters.length > 0 && (
         <div className="flex flex-wrap items-center gap-2 mb-4">
           <span className="font-semibold text-sm text-[#2D3748]">Selected filters:</span>
           {activeFilters.map(f => (
             <button
               key={f}
-              onClick={() => removeFilter(f)}
+              onClick={() => toggleFilter(f)}
               className="flex items-center gap-1 px-3 py-1 rounded-full bg-brand-light text-white text-sm hover:opacity-80"
             >
               {getLabelFor(f)} <span className="text-xs">×</span>
             </button>
           ))}
+          <button
+            onClick={() => setActiveFilters([])}
+            className="ml-2 text-sm text-gray-500 underline hover:text-gray-700"
+          >
+            Clear all
+          </button>
         </div>
       )}
 

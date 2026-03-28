@@ -68,5 +68,7 @@ export function buildCardData(trail: Trail, meta: TrailMeta | undefined): TrailC
     cardDistance:     meta?.distanceText || (trail.lengthKm ? `${trail.lengthKm}km` : ''),
     cardSightings:    buildSightings(trail),
     cardDescription:  trail.description || '',
+    difficulty:       trail.difficulty || null,
+    nearestMRT:       trail.nearestMRT || null,
   };
 }

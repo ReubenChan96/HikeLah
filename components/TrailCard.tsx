@@ -2,6 +2,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { TrailCardData } from '@/types/trail';
 
+const DIFFICULTY_STYLES: Record<string, string> = {
+  Easy:     'bg-green-100 text-green-800',
+  Moderate: 'bg-orange-100 text-orange-800',
+  Hard:     'bg-red-100 text-red-800',
+};
+
 export default function TrailCard({ card }: { card: TrailCardData }) {
   return (
     <div className={`mb-4 ${card.cardClasses}`}>
@@ -26,7 +32,16 @@ export default function TrailCard({ card }: { card: TrailCardData }) {
               {card.cardHeaderSubtext && (
                 <p className="text-sm italic font-light text-gray-500 mb-1">{card.cardHeaderSubtext}</p>
               )}
-              <h2 className="text-2xl md:text-3xl font-bold text-[#2D3748] mb-2">{card.cardTitle}</h2>
+
+              {/* Title + difficulty badge */}
+              <div className="flex items-start gap-2 mb-2 flex-wrap">
+                <h2 className="text-2xl md:text-3xl font-bold text-[#2D3748]">{card.cardTitle}</h2>
+                {card.difficulty && (
+                  <span className={`mt-1.5 px-2 py-0.5 rounded text-xs font-semibold ${DIFFICULTY_STYLES[card.difficulty] ?? 'bg-gray-100 text-gray-700'}`}>
+                    {card.difficulty}
+                  </span>
+                )}
+              </div>
 
               {/* Pills */}
               <div className="flex flex-wrap gap-1 mb-2">
@@ -40,10 +55,18 @@ export default function TrailCard({ card }: { card: TrailCardData }) {
                 ))}
               </div>
 
-              {/* Distance */}
-              <div className="flex items-center gap-2 mb-1 text-sm">
-                <span className="text-[#2D3748]">Distance:</span>
-                <span className="font-bold text-brand-dark">{card.cardDistance}</span>
+              {/* Distance + MRT */}
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2 text-sm">
+                <span>
+                  <span className="text-[#2D3748]">Distance: </span>
+                  <span className="font-bold text-brand-dark">{card.cardDistance}</span>
+                </span>
+                {card.nearestMRT && (
+                  <span className="text-[#2D3748]">
+                    <i className="fas fa-train mr-1 text-brand-dark" />
+                    {card.nearestMRT} MRT
+                  </span>
+                )}
               </div>
 
               {/* Sightings */}
