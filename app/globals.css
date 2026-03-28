@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #FFF9EC;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Font Awesome icons (loaded via CDN in layout) */
+.fa-leaf::before    { content: '\f06c'; }
+
+/* Difficulty colour utilities */
+@layer utilities {
+  .difficulty-easy     { color: #2E7D32; }
+  .difficulty-moderate { color: #E65100; }
+  .difficulty-hard     { color: #C62828; }
+}
