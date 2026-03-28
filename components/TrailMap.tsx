@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { GMAPS_CALLBACK, gmaps } from '@/lib/gmaps';
 
 interface TrailMapProps {
   lat: number;
@@ -19,11 +20,6 @@ declare global {
     [key: string]: any;
   }
 }
-
-// Module-level singleton shared with InteractiveMap — same Google Maps script
-const GMAPS_CALLBACK = '__hikelahInteractiveMapReady__';
-let gmapsState: 'idle' | 'loading' | 'loaded' = 'idle';
-const pendingInits: (() => void)[] = [];
 
 export default function TrailMap({ lat, lng, trailName, apiKey }: TrailMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
@@ -62,25 +58,25 @@ export default function TrailMap({ lat, lng, trailName, apiKey }: TrailMapProps)
       });
     }
 
-    if (gmapsState === 'loaded' || window.google?.maps) {
+    if (gmaps.state === 'loaded' || window.google?.maps) {
       initMap();
       return () => { cancelled = true; };
     }
 
-    pendingInits.push(initMap);
+    gmaps.pendingInits.push(initMap);
 
-    if (gmapsState === 'loading') {
+    if (gmaps.state === 'loading') {
       return () => {
         cancelled = true;
-        const i = pendingInits.indexOf(initMap);
-        if (i > -1) pendingInits.splice(i, 1);
+        const i = gmaps.pendingInits.indexOf(initMap);
+        if (i > -1) gmaps.pendingInits.splice(i, 1);
       };
     }
 
-    gmapsState = 'loading';
+    gmaps.state = 'loading';
     window[GMAPS_CALLBACK] = () => {
-      gmapsState = 'loaded';
-      const cbs = pendingInits.splice(0);
+      gmaps.state = 'loaded';
+      const cbs = gmaps.pendingInits.splice(0);
       cbs.forEach(cb => cb());
     };
 
@@ -92,8 +88,8 @@ export default function TrailMap({ lat, lng, trailName, apiKey }: TrailMapProps)
 
     return () => {
       cancelled = true;
-      const i = pendingInits.indexOf(initMap);
-      if (i > -1) pendingInits.splice(i, 1);
+      const i = gmaps.pendingInits.indexOf(initMap);
+      if (i > -1) gmaps.pendingInits.splice(i, 1);
     };
   }, [lat, lng, trailName, apiKey]);
 

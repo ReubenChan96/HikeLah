@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { GMAPS_CALLBACK, gmaps } from '@/lib/gmaps';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type GMaps = any;
@@ -12,11 +13,6 @@ declare global {
     [key: string]: any;
   }
 }
-
-// Module-level singleton: prevents double-loading Google Maps across Strict Mode re-mounts
-const GMAPS_CALLBACK = '__hikelahInteractiveMapReady__';
-let gmapsState: 'idle' | 'loading' | 'loaded' = 'idle';
-const pendingInits: (() => void)[] = [];
 
 const MAP_STYLES = [
   { elementType: 'geometry', stylers: [{ color: '#ebe3cd' }] },
@@ -164,28 +160,28 @@ export default function InteractiveMap({ apiKey }: { apiKey: string }) {
       });
     }
 
-    if (gmapsState === 'loaded' || window.google?.maps) {
+    if (gmaps.state === 'loaded' || window.google?.maps) {
       initMap();
       return () => { cancelled = true; };
     }
 
     // Queue this init to run once the script loads
-    pendingInits.push(initMap);
+    gmaps.pendingInits.push(initMap);
 
-    if (gmapsState === 'loading') {
+    if (gmaps.state === 'loading') {
       // Script already in flight — just wait
       return () => {
         cancelled = true;
-        const i = pendingInits.indexOf(initMap);
-        if (i > -1) pendingInits.splice(i, 1);
+        const i = gmaps.pendingInits.indexOf(initMap);
+        if (i > -1) gmaps.pendingInits.splice(i, 1);
       };
     }
 
     // First loader: create the script
-    gmapsState = 'loading';
+    gmaps.state = 'loading';
     window[GMAPS_CALLBACK] = () => {
-      gmapsState = 'loaded';
-      const cbs = pendingInits.splice(0);
+      gmaps.state = 'loaded';
+      const cbs = gmaps.pendingInits.splice(0);
       cbs.forEach(cb => cb());
     };
 
@@ -197,8 +193,8 @@ export default function InteractiveMap({ apiKey }: { apiKey: string }) {
 
     return () => {
       cancelled = true;
-      const i = pendingInits.indexOf(initMap);
-      if (i > -1) pendingInits.splice(i, 1);
+      const i = gmaps.pendingInits.indexOf(initMap);
+      if (i > -1) gmaps.pendingInits.splice(i, 1);
     };
   }, [apiKey]);
 

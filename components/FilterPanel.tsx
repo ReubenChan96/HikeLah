@@ -37,7 +37,9 @@ export default function FilterPanel({ trails }: { trails: TrailCardData[] }) {
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const filterBarRef = useRef<HTMLDivElement>(null);
+  const dropdownButtonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
 
+  // Close dropdown on outside click
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (filterBarRef.current && !filterBarRef.current.contains(e.target as Node)) {
@@ -47,6 +49,20 @@ export default function FilterPanel({ trails }: { trails: TrailCardData[] }) {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  // Close dropdown on Escape and restore focus to trigger button
+  useEffect(() => {
+    if (!openDropdown) return;
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        const label = openDropdown;
+        setOpenDropdown(null);
+        if (label) dropdownButtonRefs.current.get(label)?.focus();
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [openDropdown]);
 
   function toggleFilter(value: string) {
     setActiveFilters(prev =>
@@ -77,6 +93,15 @@ export default function FilterPanel({ trails }: { trails: TrailCardData[] }) {
   const [aiError, setAiError] = useState<string | null>(null);
   const [showAllTrails, setShowAllTrails] = useState(false);
 
+  function isAiRecommendation(x: unknown): x is AiRecommendation {
+    return (
+      typeof x === 'object' && x !== null &&
+      typeof (x as AiRecommendation).trailId === 'number' &&
+      typeof (x as AiRecommendation).matchScore === 'number' &&
+      typeof (x as AiRecommendation).reason === 'string'
+    );
+  }
+
   async function handleAiSubmit(e: React.FormEvent) {
     e.preventDefault();
     const q = aiQuery.trim();
@@ -93,7 +118,7 @@ export default function FilterPanel({ trails }: { trails: TrailCardData[] }) {
       if (!res.ok) throw new Error('Request failed');
       const data: unknown = await res.json();
       if (!Array.isArray(data)) throw new Error('Invalid response');
-      setAiResults(data as AiRecommendation[]);
+      setAiResults(data.filter(isAiRecommendation));
     } catch {
       setAiError('Try rephrasing your search');
       setAiResults(null);
@@ -139,19 +164,32 @@ export default function FilterPanel({ trails }: { trails: TrailCardData[] }) {
 
   return (
     <>
+      {/* Screen-reader live region for AI results */}
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
+        {aiLoading && 'Finding trail recommendations…'}
+        {aiResults && !aiLoading &&
+          `AI found ${aiPickedTrails.length} recommended trail${aiPickedTrails.length !== 1 ? 's' : ''}.`}
+        {aiError && `Could not load recommendations. ${aiError}`}
+      </div>
+
       {/* AI search bar */}
       <div className="mb-5 rounded-xl border border-green-200 bg-green-50 px-4 py-3">
         <p className="text-xs font-semibold text-green-800 mb-2 uppercase tracking-wide">
           ★ AI Trail Recommender
         </p>
+        <label htmlFor="ai-search" className="block text-sm text-green-900 mb-1.5">
+          Describe your ideal hike — try difficulty, region, terrain type, or facilities
+        </label>
         <form onSubmit={handleAiSubmit} className="flex gap-2">
           <input
+            id="ai-search"
             type="text"
             value={aiQuery}
             onChange={e => setAiQuery(e.target.value)}
             placeholder='e.g. "easy walk with wildlife near MRT"'
             disabled={aiLoading}
-            className="flex-1 rounded-lg border border-green-300 bg-white px-3 py-2 text-sm placeholder-gray-400 focus:border-green-500 focus:outline-none disabled:opacity-60"
+            maxLength={200}
+            className="flex-1 rounded-lg border border-green-300 bg-white px-3 py-2 text-sm placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:ring-offset-1 outline-none disabled:opacity-60"
           />
           <button
             type="submit"
@@ -160,7 +198,7 @@ export default function FilterPanel({ trails }: { trails: TrailCardData[] }) {
           >
             {aiLoading ? (
               <>
-                <span className="inline-block h-3.5 w-3.5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                <span className="inline-block h-3.5 w-3.5 animate-spin motion-reduce:animate-none rounded-full border-2 border-white border-t-transparent" />
                 Asking…
               </>
             ) : (
@@ -177,9 +215,12 @@ export default function FilterPanel({ trails }: { trails: TrailCardData[] }) {
             </button>
           )}
         </form>
-        {aiError && (
-          <p className="mt-2 text-xs text-red-600">{aiError}</p>
-        )}
+        <div className="flex justify-between items-center mt-1">
+          {aiError && (
+            <p className="text-xs text-red-600">{aiError}</p>
+          )}
+          <p className="text-xs text-gray-400 ml-auto">{aiQuery.length}/200</p>
+        </div>
       </div>
 
       {/* AI mode banner */}
@@ -204,6 +245,12 @@ export default function FilterPanel({ trails }: { trails: TrailCardData[] }) {
             {FILTER_GROUPS.map(group => (
               <div key={group.label} className="relative">
                 <button
+                  ref={el => {
+                    if (el) dropdownButtonRefs.current.set(group.label, el);
+                  }}
+                  aria-expanded={openDropdown === group.label}
+                  aria-controls={`filter-dropdown-${group.label}`}
+                  aria-haspopup="listbox"
                   className={`px-4 py-2 rounded border-2 border-brand-dark text-sm font-medium transition-colors ${
                     openDropdown === group.label
                       ? 'bg-brand-dark text-white'
@@ -211,10 +258,15 @@ export default function FilterPanel({ trails }: { trails: TrailCardData[] }) {
                   }`}
                   onClick={() => setOpenDropdown(o => o === group.label ? null : group.label)}
                 >
-                  {group.label} <span className="ml-1">▾</span>
+                  {group.label} <span aria-hidden="true" className="ml-1">▾</span>
                 </button>
                 {openDropdown === group.label && (
-                  <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[180px]">
+                  <div
+                    id={`filter-dropdown-${group.label}`}
+                    role="listbox"
+                    aria-label={`${group.label} filter options`}
+                    className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[180px]"
+                  >
                     {group.options.map(opt => (
                       <label key={opt.value} className="flex items-center gap-2 px-4 py-2 cursor-pointer hover:bg-brand-pale text-sm">
                         <input
@@ -239,9 +291,10 @@ export default function FilterPanel({ trails }: { trails: TrailCardData[] }) {
                 <button
                   key={f}
                   onClick={() => toggleFilter(f)}
+                  aria-label={`Remove ${getLabelFor(f)} filter`}
                   className="flex items-center gap-1 px-3 py-1 rounded-full bg-brand-light text-white text-sm hover:opacity-80"
                 >
-                  {getLabelFor(f)} <span className="text-xs">×</span>
+                  {getLabelFor(f)} <span aria-hidden="true" className="text-xs">×</span>
                 </button>
               ))}
               <button
@@ -258,7 +311,7 @@ export default function FilterPanel({ trails }: { trails: TrailCardData[] }) {
       <hr className="border-[#ACACAC] mb-4" />
 
       {/* Trail count */}
-      <p className="text-sm text-gray-500 mb-4">
+      <p aria-live="polite" aria-atomic="true" className="text-sm text-gray-500 mb-4">
         Showing {displayedTrails.length} of {trails.length} trails
       </p>
 
@@ -272,7 +325,17 @@ export default function FilterPanel({ trails }: { trails: TrailCardData[] }) {
           />
         ))}
         {displayedTrails.length === 0 && (
-          <p className="text-center text-gray-500 py-12">No trails match the selected filters.</p>
+          <div className="text-center py-16 flex flex-col items-center gap-4">
+            <i className="fas fa-map-signs text-4xl text-gray-300" aria-hidden="true" />
+            <p className="text-gray-600 font-medium">No trails match your filters.</p>
+            <p className="text-gray-400 text-sm">Try removing a filter or clearing all.</p>
+            <button
+              onClick={() => setActiveFilters([])}
+              className="px-4 py-2 rounded-lg bg-brand-dark text-white text-sm font-medium hover:bg-brand-mid transition-colors"
+            >
+              Clear all filters
+            </button>
+          </div>
         )}
       </div>
     </>

@@ -66,10 +66,12 @@ export default function WeatherWidget({ lat, lng, regionKey }: WeatherWidgetProp
 
   useEffect(() => {
     async function load() {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 8000);
       try {
         const [r1, r2] = await Promise.all([
-          fetch('https://api-open.data.gov.sg/v2/real-time/api/two-hr-weather'),
-          fetch('https://api-open.data.gov.sg/v2/real-time/api/24hr-weather'),
+          fetch('https://api-open.data.gov.sg/v2/real-time/api/two-hr-weather', { signal: controller.signal }),
+          fetch('https://api-open.data.gov.sg/v2/real-time/api/24hr-weather', { signal: controller.signal }),
         ]);
         const nowcast = await r1.json();
         const forecast = await r2.json();
@@ -107,6 +109,8 @@ export default function WeatherWidget({ lat, lng, regionKey }: WeatherWidgetProp
         setStatus('ok');
       } catch {
         setStatus('error');
+      } finally {
+        clearTimeout(timeout);
       }
     }
     load();
