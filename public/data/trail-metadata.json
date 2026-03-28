@@ -68,5 +68,110 @@
     "headerSubtext": "",
     "distanceText": "20km | Est. 3h 30min",
     "extraPills": ["Bike-friendly"]
+  },
+  "Southern Ridges": {
+    "imageUrl": "/assets/img/placeholder.jpeg",
+    "trailGuideUrl": "https://beta.nparks.gov.sg/docs/default-source/parks-docs/shared/hortpark-southern-ridges-diy-walk.pdf",
+    "headerSubtext": "Partially Closed",
+    "distanceText": "10km | Est. 3h 30min",
+    "extraPills": ["Family-friendly"]
+  },
+  "Bukit Timah Nature Reserve": {
+    "imageUrl": "/assets/img/placeholder.jpeg",
+    "trailGuideUrl": "https://www.nparks.gov.sg/visit/parks/bukit-timah-nature-reserve/activities/hiking-and-nature-walks",
+    "headerSubtext": "Recommended by Hikelah",
+    "distanceText": "2.5km | Est. 1h 30min",
+    "extraPills": []
+  },
+  "MacRitchie Reservoir Trail": {
+    "imageUrl": "/assets/img/placeholder.jpeg",
+    "trailGuideUrl": "https://www.nparks.gov.sg/visit/parks/central-catchment-nature-reserve/activities/hiking-nature-walk",
+    "headerSubtext": "Recommended by Hikelah",
+    "distanceText": "7km | Est. 3h 00min",
+    "extraPills": []
+  },
+  "Labrador Nature Park": {
+    "imageUrl": "/assets/img/placeholder.jpeg",
+    "trailGuideUrl": "https://www.nparks.gov.sg/visit/parks/park-detail/labrador-nature-reserve/",
+    "headerSubtext": "",
+    "distanceText": "3km | Est. 1h 30min",
+    "extraPills": ["Family-friendly", "Wheelchair-friendly"]
+  },
+  "Sungei Buloh Wetland Reserve": {
+    "imageUrl": "/assets/img/placeholder.jpeg",
+    "trailGuideUrl": "https://www.nparks.gov.sg/visit/parks/sungei-buloh-wetland-reserve/activities/nature-walks-tours",
+    "headerSubtext": "Recommended by Hikelah",
+    "distanceText": "3km | Est. 1h 30min",
+    "extraPills": ["Family-friendly", "Wheelchair-friendly"]
+  },
+  "Chestnut Nature Park": {
+    "imageUrl": "/assets/img/placeholder.jpeg",
+    "trailGuideUrl": "https://www.nparks.gov.sg/visit/parks/park-detail/chestnut-nature-park",
+    "headerSubtext": "",
+    "distanceText": "5km | Est. 2h 00min",
+    "extraPills": []
+  },
+  "East Coast Park": {
+    "imageUrl": "/assets/img/placeholder.jpeg",
+    "trailGuideUrl": "https://www.nparks.gov.sg/visit/parks/park-detail/east-coast-park",
+    "headerSubtext": "",
+    "distanceText": "13km | Est. 3h 00min",
+    "extraPills": ["Family-friendly", "Bike-friendly", "Dog-friendly"]
+  },
+  "Bedok Reservoir Park": {
+    "imageUrl": "/assets/img/placeholder.jpeg",
+    "trailGuideUrl": "https://www.nparks.gov.sg/visit/parks/park-detail/bedok-reservoir-park/",
+    "headerSubtext": "",
+    "distanceText": "4.3km | Est. 1h 15min",
+    "extraPills": ["Family-friendly"]
+  },
+  "Kent Ridge Park": {
+    "imageUrl": "/assets/img/placeholder.jpeg",
+    "trailGuideUrl": "https://www.nparks.gov.sg/visit/parks/park-detail/kent-ridge-park/",
+    "headerSubtext": "",
+    "distanceText": "3km | Est. 1h 30min",
+    "extraPills": []
+  },
+  "Coast to Coast Trail": {
+    "imageUrl": "/assets/img/placeholder.jpeg",
+    "trailGuideUrl": "https://pcn.nparks.gov.sg/our-pcn/c2c/",
+    "headerSubtext": "",
+    "distanceText": "36km | Est. 10h 00min",
+    "extraPills": ["Bike-friendly"]
+  },
+  "Sentosa Nature Trails": {
+    "imageUrl": "/assets/img/placeholder.jpeg",
+    "trailGuideUrl": "https://www.sentosa.com.sg/en/get-inspired/sentosa-guides/sentosa-nature-trails/",
+    "headerSubtext": "",
+    "distanceText": "4.5km | Est. 1h 30min",
+    "extraPills": ["Family-friendly"]
+  },
+  "Changi Beach Park": {
+    "imageUrl": "/assets/img/placeholder.jpeg",
+    "trailGuideUrl": "https://www.nparks.gov.sg/visit/parks/park-detail/changi-beach-park/",
+    "headerSubtext": "",
+    "distanceText": "3.5km | Est. 1h 00min",
+    "extraPills": ["Family-friendly", "Bike-friendly"]
+  },
+  "Bukit Gombak Park": {
+    "imageUrl": "/assets/img/placeholder.jpeg",
+    "trailGuideUrl": "https://www.nparks.gov.sg/visit/parks/park-detail/bukit-gombak-park",
+    "headerSubtext": "",
+    "distanceText": "0.4km | Est. 30min",
+    "extraPills": ["Dog-friendly", "Family-friendly"]
+  },
+  "Bishan-Ang Mo Kio Park": {
+    "imageUrl": "/assets/img/placeholder.jpeg",
+    "trailGuideUrl": "https://www.nparks.gov.sg/visit/parks/park-detail/bishan-ang-mo-kio-park",
+    "headerSubtext": "",
+    "distanceText": "5km | Est. 1h 30min",
+    "extraPills": ["Family-friendly", "Dog-friendly"]
+  },
+  "Kranji Marshes": {
+    "imageUrl": "/assets/img/placeholder.jpeg",
+    "trailGuideUrl": "https://www.nparks.gov.sg/visit/parks/park-detail/kranji-marshes",
+    "headerSubtext": "Recommended by Hikelah",
+    "distanceText": "2km | Est. 1h 30min",
+    "extraPills": ["Family-friendly", "Wheelchair-friendly"]
   }
 }

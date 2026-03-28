@@ -24,5 +24,28 @@ model Trail {
   west               Boolean @default(false)
   central            Boolean @default(false)
 
+  // Discovery & Difficulty
+  difficulty         String?
+  estimatedHours     Float?
+  elevationGainM     Int?
+  terrainType        String?
+
+  // Accessibility & Logistics
+  nearestMRT         String?
+  parkingAvail       String?
+  dogFriendly        Boolean   @default(false)
+  wheelchairAccess   Boolean   @default(false)
+  toilets            Boolean   @default(false)
+  shelters           Boolean   @default(false)
+
+  // Status
+  isActive           Boolean   @default(true)
+  closureReason      String?
+  closureUntil       DateTime?
+
+  // Coordinates
+  lat                Float?
+  lng                Float?
+
   @@map("trails")
 }
