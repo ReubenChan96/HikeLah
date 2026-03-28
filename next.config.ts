@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com",
               "img-src 'self' data: https://maps.gstatic.com https://maps.googleapis.com",
-              "connect-src 'self' https://api-open.data.gov.sg https://maps.googleapis.com",
+              "connect-src 'self' https://api-open.data.gov.sg https://maps.googleapis.com https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net",
               "frame-src 'none'",
             ].join('; '),
           },
