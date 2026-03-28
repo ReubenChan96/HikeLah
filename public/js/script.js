@@ -494,12 +494,15 @@ document.addEventListener('DOMContentLoaded', function() {
       const type = feature.getProperty('type');
       const park = feature.getProperty('park'); // Park refers to name on the map 
 
-      const contentString = `<div>
-          <h5>${park}</h5>
-          <p>Trail Type: ${type}</p>
-      </div>`;
+      const div = document.createElement('div');
+      const h5 = document.createElement('h5');
+      h5.textContent = park || '';
+      const p = document.createElement('p');
+      p.textContent = `Trail Type: ${type || 'Unknown'}`;
+      div.appendChild(h5);
+      div.appendChild(p);
 
-      infoWindow.setContent(contentString);
+      infoWindow.setContent(div);
       infoWindow.setPosition(event.latLng);
       infoWindow.open(map);
   });
@@ -507,27 +510,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   //filter logic --> ensures page is loaded, query selectors from the checkbox in explore.ejs, console.logs were present to de-bug
-  // filter pills will appear when user checks an option
+  //Initialisation: Ensure DOM is fully loaded before executing any logic
   document.addEventListener('DOMContentLoaded', function () {
-    console.log('DOM fully loaded and parsed');
-
+    // defines filterCheckboxes and selects all to check
     const filterCheckboxes = document.querySelectorAll('.form-check-input');
     const filterPillsContainer = document.getElementById('filter-pills-container');
 
     if (filterCheckboxes.length === 0) {
-        console.error('No filter checkboxes found.');
         return;
     }
 
     const cardsContainer = document.querySelector('.container.search .cards-container');
     if (!cardsContainer) {
-        console.error('Cards container not found.');
         return;
     }
 
     const cards = cardsContainer.querySelectorAll('.row');
     if (cards.length === 0) {
-        console.error('No cards found.');
         return;
     }
 
@@ -536,15 +535,6 @@ document.addEventListener('DOMContentLoaded', function() {
           updateFilterPills();
           filterCards();
       });
-  });
-
-    //For de-bugging missing checkboxes, cards not rendering, card-container errors
-    console.log('Filter checkboxes:', filterCheckboxes);
-    console.log('Cards container:', cardsContainer);
-    console.log('Cards:', cards);
-
-    filterCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', filterCards);
     });
 
     // function to generate pills of the selection
@@ -582,13 +572,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // once the filters have been selected, render the related partials that have been defined by the related classes. ensures that when it matches SOME filters, it appears. This was done with the assistance of ChatGPT and GovTech Engineers <3. 
 
     function filterCards() {
+        //Collect values into an array
         const selectedFilters = Array.from(filterCheckboxes)
             .filter(checkbox => checkbox.checked)
             .map(checkbox => checkbox.value);
         cards.forEach(card => {
+            //Uses 'some' method and to return true if at least one filter matches any one of the card's classes
             const cardClasses = card.className.split(' ');
             const matchesSomeFilters = selectedFilters.some(filter => cardClasses.includes(filter));
 
+            //Display the cards and make them visible
             if (selectedFilters.length === 0 || matchesSomeFilters) {
                 card.style.display = '';
             } else {

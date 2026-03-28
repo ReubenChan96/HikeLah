@@ -3,7 +3,9 @@
     "@prisma/client": "^5.14.0",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "express-rate-limit": "^8.3.1",
+    "helmet": "^8.1.0"
   },
   "name": "hikelah",
   "version": "1.0.0",

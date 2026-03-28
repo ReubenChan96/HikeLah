@@ -1,20 +1,12 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-
 generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-1.1.x"]
 }
 
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 
 model Trail {
   id                 Int     @id @default(autoincrement())
@@ -22,15 +14,15 @@ model Trail {
   trailType          String
   description        String?
   lengthKm           Float?
-  casualWalk         Boolean
-  forestedTrail      Boolean
-  floraFaunaSpotting Boolean
-  wildlifeSpotting   Boolean
-  north              Boolean
-  south              Boolean
-  east               Boolean
-  west               Boolean
-  central            Boolean
+  casualWalk         Boolean @default(false)
+  forestedTrail      Boolean @default(false)
+  floraFaunaSpotting Boolean @default(false)
+  wildlifeSpotting   Boolean @default(false)
+  north              Boolean @default(false)
+  south              Boolean @default(false)
+  east               Boolean @default(false)
+  west               Boolean @default(false)
+  central            Boolean @default(false)
 
   @@map("trails")
 }

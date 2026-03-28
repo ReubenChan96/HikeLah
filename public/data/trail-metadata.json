@@ -1,0 +1,72 @@
+{
+  "Punggol Promenade Nature Walk": {
+    "imageUrl": "/assets/img/punggol-promenade.jpeg",
+    "trailGuideUrl": "https://www.punggol.com/punggol-promenade.html",
+    "headerSubtext": "Partially Closed",
+    "distanceText": "2.5km | Est. 1h 00min",
+    "extraPills": ["Family-friendly", "Bike-friendly"]
+  },
+  "Round Island Park Connector": {
+    "imageUrl": "/assets/img/round-island.jpeg",
+    "trailGuideUrl": "https://pcn.nparks.gov.sg/know-our-pcn/rir/",
+    "headerSubtext": "",
+    "distanceText": "150km | Est. 10h 30min",
+    "extraPills": ["Island-wide", "Bike-friendly"]
+  },
+  "Rail Corridor": {
+    "imageUrl": "/assets/img/rail-corridor.jpeg",
+    "trailGuideUrl": "https://www.timeout.com/singapore/things-to-do/the-ultimate-guide-to-the-rail-corridor-in-singapore",
+    "headerSubtext": "Recommended by Hikelah",
+    "distanceText": "24km | Est. 3h 40min",
+    "extraPills": ["Family-friendly"]
+  },
+  "Eastern Corridor": {
+    "imageUrl": "/assets/img/eastern-corridor.jpeg",
+    "trailGuideUrl": "https://thesmartlocal.com/read/eastern-corridor-cycling-guide/",
+    "headerSubtext": "",
+    "distanceText": "18km | Est. 3h 10min",
+    "extraPills": ["Bike-friendly"]
+  },
+  "Bidadari Park Connector": {
+    "imageUrl": "/assets/img/bidadari-park.jpeg",
+    "trailGuideUrl": "https://pcn.nparks.gov.sg/bidadari-pc/",
+    "headerSubtext": "",
+    "distanceText": "1km | Est. 30min",
+    "extraPills": ["Bike-friendly"]
+  },
+  "Bukit Batok Nature Park Walking Trail": {
+    "imageUrl": "/assets/img/bukit-batok-nature.jpeg",
+    "trailGuideUrl": "https://www.nparks.gov.sg/~/media/nparks-real-content/gardens-parks-and-nature/diy-walk/diy-walk-pdf-files/bukit-batok-nature-park-walking-trail.pdf?la=en",
+    "headerSubtext": "",
+    "distanceText": "2km | Est. 1hr 30min",
+    "extraPills": ["Family-friendly"]
+  },
+  "TreeTop Walk (From Windsor Nature Park)": {
+    "imageUrl": "/assets/img/treetop-walk.jpeg",
+    "trailGuideUrl": "https://www.nparks.gov.sg/-/media/nparks-real-content/gardens-parks-and-nature/diy-walk/diy-walk-pdf-files/treetop_walk_eguide_lres.pdf",
+    "headerSubtext": "",
+    "distanceText": "5km | Est. 2h 10min",
+    "extraPills": ["Family-friendly"]
+  },
+  "Coney Island Park": {
+    "imageUrl": "/assets/img/coney-island-park.jpeg",
+    "trailGuideUrl": "https://www.nparks.gov.sg/-/media/nparks-real-content/gardens-parks-and-nature/diy-walk/diy-walk-pdf-files/diy-coney-island-brochure.pdf",
+    "headerSubtext": "Recommended by Hikelah",
+    "distanceText": "6km | Est. 1h 30min",
+    "extraPills": ["Bike-friendly"]
+  },
+  "Marang Trail and Faber Walk, Mt Faber Park": {
+    "imageUrl": "/assets/img/marang-faber.webp",
+    "trailGuideUrl": "https://eunicetan.co/marang-trail-singapore/",
+    "headerSubtext": "Recommended by Hikelah",
+    "distanceText": "3km | Est. 1h 15min",
+    "extraPills": []
+  },
+  "Western Adventure Loop": {
+    "imageUrl": "/assets/img/western-adventure-loop.jpeg",
+    "trailGuideUrl": "https://www.nparks.gov.sg/~/media/nparks-real-content/gardens-parks-and-nature/diy-walk/diy-walk-pdf-files/western-adventure-loop.pdf?la=en",
+    "headerSubtext": "",
+    "distanceText": "20km | Est. 3h 30min",
+    "extraPills": ["Bike-friendly"]
+  }
+}
