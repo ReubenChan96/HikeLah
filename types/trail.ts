@@ -58,3 +58,9 @@ export interface TrailCardData {
   difficulty: string | null;
   nearestMRT: string | null;
 }
+
+export interface AiRecommendation {
+  trailId: number;
+  matchScore: number;
+  reason: string;
+}

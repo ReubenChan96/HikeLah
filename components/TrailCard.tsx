@@ -8,11 +8,20 @@ const DIFFICULTY_STYLES: Record<string, string> = {
   Hard:     'bg-red-100 text-red-800',
 };
 
-export default function TrailCard({ card }: { card: TrailCardData }) {
+export default function TrailCard({ card, aiReason }: { card: TrailCardData; aiReason?: string }) {
   return (
     <div className={`mb-4 ${card.cardClasses}`}>
       <Link href={card.cardLink} className="no-underline text-inherit">
         <div className="rounded-xl border-2 border-transparent hover:border-brand-dark transition-colors bg-white overflow-hidden cursor-pointer">
+          {aiReason && (
+            <div className="relative group bg-green-600 text-white text-xs font-semibold px-4 py-1.5 flex items-center gap-2 select-none">
+              <span>★ AI Pick</span>
+              <span className="opacity-75 font-normal truncate">{aiReason}</span>
+              <div className="pointer-events-none absolute top-full left-4 mt-1 hidden group-hover:block bg-gray-900 text-white text-xs rounded-lg px-3 py-2 z-20 w-72 shadow-xl leading-relaxed">
+                {aiReason}
+              </div>
+            </div>
+          )}
           <div className="flex flex-col md:flex-row">
             {/* Image */}
             <div className="md:w-1/3 flex-shrink-0">
