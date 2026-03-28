@@ -32,7 +32,7 @@ app.use(helmet({
       ],
       fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
       imgSrc: ["'self'", "data:", "https://maps.gstatic.com", "https://maps.googleapis.com"],
-      connectSrc: ["'self'"],
+      connectSrc: ["'self'", "https://api-open.data.gov.sg", "https://maps.googleapis.com"],
       frameSrc: ["'none'"],
     },
   },
@@ -112,8 +112,9 @@ function buildSightings(trail) {
 function buildCardData(trail) {
   const meta = trailMetadata[trail.name] || {};
   return {
+    trailId: trail.id,
     cardClasses: buildCardClasses(trail),
-    cardLink: meta.trailGuideUrl || '#',
+    cardLink: `/trails/${trail.id}`,
     cardImage: meta.imageUrl || '/assets/img/explore-banner.png',
     cardAltText: trail.name,
     cardHeaderSubtext: meta.headerSubtext || '',
@@ -154,6 +155,22 @@ app.get('/api/trails', async (req, res) => {
 // Suggested use: trail recommendations, natural-language search, or a chat assistant
 app.post('/api/claude', async (req, res) => {
   res.status(501).json({ message: 'Claude integration not yet implemented' });
+});
+
+app.get('/trails/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) return res.status(404).send('Trail not found');
+    const trail = await prisma.trail.findUnique({ where: { id } });
+    if (!trail) return res.status(404).send('Trail not found');
+    const meta = trailMetadata[trail.name] || {};
+    // Determine primary region for weather lookup
+    const regionKey = ['north', 'south', 'east', 'west', 'central'].find(r => trail[r]) || 'central';
+    res.render('trail', { trail, meta, regionKey, apiKey: process.env.GOOGLE_MAPS_API_KEY });
+  } catch (err) {
+    console.error('Failed to load trail:', err);
+    res.status(500).send('Server error');
+  }
 });
 
 app.get('/about-me', (req, res) => {

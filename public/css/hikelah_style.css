@@ -474,12 +474,257 @@
 
     .filter-pill {
         background-color:#6BA51A;
-        color: white; 
+        color: white;
         border-radius: 25px;
         padding: 5px 10px;
         margin-right: 5px;
         cursor: pointer;
     }
 
+/* ===== Trail Detail Page ===== */
 
-    
+.trail-breadcrumb-link {
+    color: #3D550C;
+    text-decoration: none;
+}
+.trail-breadcrumb-link:hover {
+    text-decoration: underline;
+}
+
+/* Hero */
+.trail-hero-wrap {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+}
+@media (min-width: 768px) {
+    .trail-hero-wrap { height: 420px; }
+}
+.trail-hero-img {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.65);
+}
+.trail-hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+.trail-hero-title {
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+@media (min-width: 768px) {
+    .trail-hero-title { font-size: 2.75rem; }
+}
+.trail-status-badge {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.badge-open {
+    background-color: rgba(107, 165, 26, 0.9);
+    color: #ffffff;
+}
+.badge-closed {
+    background-color: rgba(220, 53, 69, 0.9);
+    color: #ffffff;
+}
+.trail-difficulty-hero {
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+    color: #ffffff;
+}
+
+/* Difficulty colours (shared: stat cards + hero badge) */
+.difficulty-easy   { color: #2E7D32; }
+.difficulty-moderate { color: #E65100; }
+.difficulty-hard   { color: #C62828; }
+.trail-difficulty-hero.difficulty-easy     { background-color: #2E7D32; }
+.trail-difficulty-hero.difficulty-moderate { background-color: #E65100; }
+.trail-difficulty-hero.difficulty-hard     { background-color: #C62828; }
+
+/* Stat cards */
+.trail-stat-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+}
+.trail-stat-icon {
+    font-size: 1.5rem;
+    color: #6BA51A;
+    margin-bottom: 8px;
+    display: block;
+}
+.trail-stat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #718096;
+    margin-bottom: 4px;
+}
+.trail-stat-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2D3748;
+}
+
+/* Sections */
+.trail-section {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    border: 1px solid #e2e8f0;
+}
+.trail-section-heading {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #3D550C;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f0f7e6;
+}
+
+/* Expect badges */
+.trail-expect-badge {
+    background-color: #f0f7e6;
+    color: #3D550C;
+    border: 1px solid #c3e08c;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Info tiles (MRT / Carpark) */
+.trail-info-tile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 14px;
+}
+.trail-info-icon {
+    font-size: 1.4rem;
+    color: #6BA51A;
+    flex-shrink: 0;
+}
+.trail-info-tile-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #718096;
+}
+.trail-info-tile-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #2D3748;
+}
+
+/* Facility badges */
+.trail-facility-badge {
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+}
+.facility-yes {
+    background-color: #f0f7e6;
+    color: #2E7D32;
+    border: 1px solid #c3e08c;
+}
+.facility-no {
+    background-color: #f8f9fa;
+    color: #9e9e9e;
+    border: 1px solid #dee2e6;
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+/* Trail map */
+#trail-map {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+@media (min-width: 992px) {
+    #trail-map { height: 360px; }
+}
+
+/* Weather widget */
+.weather-nowcast-card {
+    background: linear-gradient(135deg, #e8f5e9 0%, #f0f7e6 100%);
+    border-radius: 10px;
+    padding: 16px;
+}
+.weather-big-icon {
+    flex-shrink: 0;
+}
+.weather-icon-fa {
+    font-size: 2.5rem;
+    color: #3D550C;
+}
+.weather-area-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #3D550C;
+}
+.weather-forecast-text {
+    font-size: 0.95rem;
+    color: #4a5568;
+    margin-top: 2px;
+}
+.weather-forecast-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #718096;
+    font-weight: 600;
+}
+.weather-period-card {
+    background: #f8f9fa;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    text-align: center;
+    min-width: 100px;
+    flex: 1 1 100px;
+}
+.weather-period-time {
+    font-size: 0.7rem;
+    color: #718096;
+    margin-bottom: 6px;
+}
+.weather-period-icon {
+    font-size: 1.4rem;
+    color: #6BA51A;
+    display: block;
+    margin-bottom: 6px;
+}
+.weather-period-label {
+    font-size: 0.72rem;
+    color: #4a5568;
+    font-weight: 500;
+}

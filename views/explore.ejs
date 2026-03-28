@@ -125,13 +125,13 @@
 
     <!--Explore and Map buttons-->
 
-    <!--Trail cards served dynamically from the Render PostgreSQL database via Prisma.
+    <!--Trail cards served dynamically from Supabase PostgreSQL via Prisma.
          Display-only fields (images, guide URLs, extra pills) are merged from public/data/trail-metadata.json.
-         Add new trails via `prisma db seed` or directly in the DB.-->
+         Add new trails via prisma db seed or directly in the DB.-->
     <div class="container search">
       <div class="cards-container">
         <% trails.forEach(function(trail) { %>
-          <%- include(‘partials/search-card’, trail) %>
+          <%- include('partials/search-card', trail) %>
         <% }) %>
         <% if (trails.length === 0) { %>
           <p class="text-center text-muted mt-4">No trails found. Check the database connection.</p>
