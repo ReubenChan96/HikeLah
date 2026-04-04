@@ -1,0 +1,89 @@
+{
+  "backgroundColor": "#ebe3cd",
+  "styles": [
+    {
+      "id": "political",
+      "geometry": { "strokeColor": "#c9b2a6" }
+    },
+    {
+      "id": "political.landParcel",
+      "geometry": { "strokeColor": "#dcd2be" },
+      "label": { "visible": false }
+    },
+    {
+      "id": "natural.land",
+      "geometry": { "fillColor": "#dfd2ae" }
+    },
+    {
+      "id": "natural.water",
+      "geometry": { "fillColor": "#b9d3c2" },
+      "label": { "textFillColor": "#92998d" }
+    },
+    {
+      "id": "pointOfInterest",
+      "geometry": { "fillColor": "#dfd2ae" },
+      "label": { "textFillColor": "#93817c" }
+    },
+    {
+      "id": "pointOfInterest.business",
+      "geometry": { "visible": false }
+    },
+    {
+      "id": "pointOfInterest.government",
+      "geometry": { "visible": false }
+    },
+    {
+      "id": "pointOfInterest.medical",
+      "geometry": { "visible": false },
+      "label": { "visible": false }
+    },
+    {
+      "id": "pointOfInterest.recreation.park",
+      "geometry": { "fillColor": "#a5b076" },
+      "label": { "textFillColor": "#447530" }
+    },
+    {
+      "id": "pointOfInterest.placeOfWorship",
+      "geometry": { "visible": false },
+      "label": { "visible": false }
+    },
+    {
+      "id": "pointOfInterest.school",
+      "geometry": { "visible": false },
+      "label": { "visible": false }
+    },
+    {
+      "id": "infrastructure.roadNetwork",
+      "geometry": { "fillColor": "#f5f1e6" }
+    },
+    {
+      "id": "infrastructure.roadNetwork.road.arterial",
+      "geometry": { "fillColor": "#fdfcf8" }
+    },
+    {
+      "id": "infrastructure.roadNetwork.road.highway",
+      "geometry": { "fillColor": "#f8c967", "strokeColor": "#e9bc62" }
+    },
+    {
+      "id": "infrastructure.roadNetwork.road.highway.controlledAccess",
+      "geometry": { "fillColor": "#e98d58", "strokeColor": "#db8555" }
+    },
+    {
+      "id": "infrastructure.roadNetwork.road.local",
+      "label": { "visible": false }
+    },
+    {
+      "id": "infrastructure.railwayTrack",
+      "geometry": { "fillColor": "#dfd2ae" },
+      "label": { "textFillColor": "#8f7d77", "textStrokeColor": "#ebe3cd" }
+    },
+    {
+      "id": "infrastructure.transitStation",
+      "geometry": { "fillColor": "#dfd2ae" }
+    },
+    {
+      "id": "infrastructure.transitStation.airport",
+      "geometry": { "visible": false }
+    }
+  ]
+}

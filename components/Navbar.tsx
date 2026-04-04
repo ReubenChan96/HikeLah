@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 const navLinks = [
   { href: '/',             label: 'Home' },
   { href: '/explore',      label: 'Explore' },
-  { href: '/map',          label: 'Interactive Map' },
+  { href: '/map',          label: 'Trail Map' },
   { href: '/useful-links', label: 'Useful Links' },
   { href: '/about-me',     label: 'About Me' },
 ];
@@ -16,11 +16,34 @@ const navLinks = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLUListElement>(null);
 
   function isActive(href: string) {
     if (href === '/') return pathname === '/';
     return pathname.startsWith(href);
   }
+
+  // Move focus to first menu link when menu opens
+  useEffect(() => {
+    if (open) {
+      const firstLink = menuRef.current?.querySelector<HTMLAnchorElement>('a');
+      firstLink?.focus();
+    }
+  }, [open]);
+
+  // Escape closes menu and restores focus to hamburger button
+  useEffect(() => {
+    if (!open) return;
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        setOpen(false);
+        buttonRef.current?.focus();
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [open]);
 
   return (
     <div className="container mx-auto px-4">
@@ -57,9 +80,12 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <button
+          ref={buttonRef}
           className="md:hidden p-2 rounded text-[#2D3748]"
           onClick={() => setOpen(o => !o)}
           aria-label="Toggle navigation"
+          aria-expanded={open}
+          aria-controls="mobile-menu"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {open ? (
@@ -73,7 +99,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <ul className="md:hidden flex flex-col items-end pb-4 gap-1">
+        <ul id="mobile-menu" ref={menuRef} className="md:hidden flex flex-col items-end pb-4 gap-1">
           {navLinks.map(link => (
             <li key={link.href}>
               <Link
@@ -92,7 +118,6 @@ export default function Navbar() {
       )}
 
       <hr className="border-[#ACACAC]" />
-      <br />
     </div>
   );
 }

@@ -72,21 +72,19 @@ export default function TrailCard({ card, aiReason }: { card: TrailCardData; aiR
                 </span>
                 {card.nearestMRT && (
                   <span className="text-[#2D3748]">
-                    <i className="fas fa-train mr-1 text-brand-dark" />
+                    <i className="fas fa-train mr-1 text-brand-dark" aria-hidden="true" />
                     {card.nearestMRT} MRT
                   </span>
                 )}
               </div>
 
-              {/* Sightings */}
-              <div className="flex items-center gap-2 mb-2 text-sm">
+              {/* Sightings — persistent visible labels (keyboard & touch accessible) */}
+              <div className="flex items-center gap-3 mb-2 text-sm flex-wrap">
                 <span className="text-[#2D3748]">Sightings:</span>
                 {card.cardSightings.map(s => (
-                  <span key={s.icon} className="relative group">
-                    <i className={`fas ${s.icon} text-brand-dark text-lg`} />
-                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 whitespace-nowrap z-10">
-                      {s.tooltiptext}
-                    </span>
+                  <span key={s.icon} className="flex items-center gap-1 text-brand-dark">
+                    <i className={`fas ${s.icon} text-lg`} aria-hidden="true" />
+                    <span className="text-xs text-gray-600">{s.tooltiptext}</span>
                   </span>
                 ))}
                 {card.cardSightings.length === 0 && <span className="text-gray-400">—</span>}

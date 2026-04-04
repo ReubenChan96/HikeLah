@@ -7,40 +7,37 @@ export const metadata: Metadata = { title: 'Useful Links — Hikelah!' };
 const links = [
   {
     href:    'https://pcn.nparks.gov.sg/',
-    label:   'Route Info',
+    label:   'Trail Routes',
     title:   'NParks Official PCN',
     img:     '/assets/img/Nparks-PCN-logo.png',
     imgAlt:  'NParks PCN Logo',
     desc:    'More info on NParks Park Connector Network (PCN), linking major parks with over 380 km of scenic trails for cycling, jogging, and walking.',
-    imgStyle: 'w-full h-auto mt-2',
   },
   {
     href:    'https://www.nparks.gov.sg/florafaunaweb',
-    label:   'Plant Guides',
+    label:   'Flora & Fauna',
     title:   'NParks Botanical Guide',
     img:     '/assets/img/Flora-fauna-nparks.png',
     imgAlt:  'NParks Flora and Fauna Web',
     desc:    'An official database of plants and animals found in Singapore.',
-    imgStyle: 'max-h-[150px] w-auto mx-auto object-contain mt-2',
   },
   {
     href:    'https://www.facebook.com/groups/179531089457/',
-    label:   'Animal Guides',
+    label:   'Wildlife Community',
     title:   'Animal Sightings FB',
     img:     '/assets/img/animal-sightings.png',
     imgAlt:  'Singapore Animal Sighting FB',
     desc:    "A Facebook community page on public encounters with Singapore's wildlife, check it out!",
-    imgStyle: 'w-full h-auto mt-2',
   },
 ];
 
 export default function UsefulLinksPage() {
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto px-4 pb-8">
       <h1 className="text-5xl font-extrabold text-brand-dark">Useful Links</h1>
-      <h4 className="text-2xl font-light mt-2">Check out some helpful resources below to get you started</h4>
+      <h2 className="text-2xl font-light mt-2">Check out some helpful resources below to get you started</h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 pb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
         {links.map(link => (
           <Link
             key={link.href}
@@ -62,20 +59,22 @@ export default function UsefulLinksPage() {
                 />
               </div>
               <p className="text-[#2D3748] text-sm">{link.desc}</p>
+              <p className="text-xs text-gray-400 mt-2">Opens in a new tab</p>
+              <span className="sr-only">(opens in a new tab)</span>
             </div>
           </Link>
         ))}
+      </div>
 
-        {/* "Can't find what you're looking for?" card */}
-        <div className="rounded-xl border border-gray-200 bg-white p-4 h-full">
-          <h3 className="text-xl font-bold text-[#2D3748]">Cannot find what you are looking for?</h3>
-          <p className="text-[#2D3748] text-sm mt-3">
-            <a href="mailto:reubenc24@hotmail.com" className="text-brand-dark hover:underline">
-              Email us
-            </a>{' '}
-            and tell us which links you frequently use!
-          </p>
-        </div>
+      {/* Can't find strip */}
+      <div className="rounded-xl border border-gray-200 bg-white p-6 mt-6">
+        <h3 className="text-xl font-bold text-[#2D3748]">Cannot find what you are looking for?</h3>
+        <p className="text-[#2D3748] text-sm mt-2">
+          <a href="mailto:reubenc24@hotmail.com" className="text-brand-dark hover:underline">
+            Email us
+          </a>{' '}
+          and tell us which links you frequently use!
+        </p>
       </div>
     </div>
   );

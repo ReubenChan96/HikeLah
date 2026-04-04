@@ -93,10 +93,10 @@ export default function HomePage() {
       {/* Feature cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 py-8">
         {featureCards.map(card => (
-          <Link key={card.href} href={card.href} className="group text-center no-underline">
+          <Link key={card.href} href={card.href} aria-label={`${card.title} — explore this section`} className="group text-center no-underline">
             <Image
               src={card.img}
-              alt={card.alt}
+              alt=""
               width={200}
               height={200}
               className="mx-auto"
