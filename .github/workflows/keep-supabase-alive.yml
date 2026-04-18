@@ -1,0 +1,36 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    - cron: "0 9 * * 1,4"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    name: Ping Supabase REST API
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase to prevent DB pause
+        run: |
+          node -e "
+          (async () => {
+            const url = process.env.SUPABASE_URL;
+            const key = process.env.SUPABASE_ANON_KEY;
+            if (!url || !key) { console.error('Missing secrets'); process.exit(1); }
+            console.log('Pinging:', url);
+            console.log('Timestamp:', new Date().toISOString());
+            const start = Date.now();
+            const res = await fetch(\`\${url}/rest/v1/\`, {
+              headers: { apikey: key, Authorization: \`Bearer \${key}\` },
+            });
+            const duration = Date.now() - start;
+            if (!res.ok && res.status !== 404 && res.status !== 401) {
+              console.error('Unexpected status:', res.status);
+              process.exit(1);
+            }
+            console.log('Success! Status:', res.status, '| Response time:', duration + 'ms');
+          })();
+          "
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
