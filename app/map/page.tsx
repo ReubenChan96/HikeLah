@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import InteractiveMap from '@/components/InteractiveMap';
 import { prisma } from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = { title: 'Trail Map — Hikelah!' };
 
 const TRAIL_LINE_LEGEND = [

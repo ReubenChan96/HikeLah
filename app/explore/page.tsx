@@ -5,6 +5,8 @@ import { trailMetadata } from '@/lib/trailMetadata';
 import { buildCardData } from '@/lib/buildTrailData';
 import FilterPanel from '@/components/FilterPanel';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = { title: "Let's Hike! — Hikelah!" };
 
 export default async function ExplorePage() {
